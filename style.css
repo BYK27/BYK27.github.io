@@ -1,0 +1,223 @@
+:root {
+  --ink: #1B2130;
+  --muted: #5A6273;
+  --accent: #2743B3;
+  --accent-dark: #1C3190;
+  --rule: #D6DAE4;
+  --surface: #F2F4F8;
+  --paper: #FFFFFF;
+
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --text: "Barlow", "Segoe UI", sans-serif;
+
+  --max: 1080px;
+  --gutter: 200px;
+  --gap: 40px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+img, video { display: block; max-width: 100%; }
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--accent-dark); text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* Links without an href yet stay hidden until a URL is added. */
+a:not([href]) { display: none; }
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ---------- Intro ---------- */
+.intro {
+  padding-top: 88px;
+  padding-bottom: 56px;
+  border-bottom: 2px solid var(--ink);
+}
+.name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(3.2rem, 9vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+.role {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  color: var(--accent);
+  margin-top: 10px;
+}
+.lead {
+  max-width: 60ch;
+  font-size: 1.12rem;
+  margin-top: 28px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 26px;
+  margin-top: 28px;
+}
+.links .primary {
+  background: var(--accent);
+  color: var(--paper);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 3px;
+}
+.links .primary:hover { background: var(--accent-dark); color: var(--paper); }
+
+/* ---------- Sections: title in a left gutter on wide screens ---------- */
+main section {
+  display: grid;
+  grid-template-columns: var(--gutter) 1fr;
+  column-gap: var(--gap);
+  padding-top: 64px;
+  padding-bottom: 8px;
+}
+main section > h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.45rem;
+  line-height: 1.2;
+  color: var(--accent);
+  padding-top: 4px;
+}
+.body { min-width: 0; }
+.body > p + p, .body > p + ul, .body > ul + p { margin-top: 14px; }
+
+h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1.15;
+}
+h4 {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.meta { color: var(--muted); margin-top: 2px; }
+.note { color: var(--muted); font-style: italic; margin-top: 22px; }
+
+.squares { list-style: none; margin-top: 14px; }
+.squares li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 6px;
+}
+.squares li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+}
+.squares b { font-weight: 600; }
+
+/* ---------- Media ---------- */
+figure { margin: 0; }
+figure img, figure video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--surface);
+  border-radius: 4px;
+}
+figure a { display: block; height: 100%; }
+
+.gallery { display: grid; gap: 12px; margin: 22px 0 24px; }
+
+.gallery-feature { grid-template-columns: repeat(3, 1fr); }
+.gallery-feature figure { aspect-ratio: 16 / 9; }
+.gallery-feature figure.wide { grid-column: 1 / -1; }
+
+.gallery-phone {
+  grid-template-columns: repeat(2, minmax(0, 180px));
+  margin: 0;
+}
+.gallery-phone figure { aspect-ratio: 9 / 19.5; }
+
+/* ---------- Professional work ---------- */
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------- Game jams ---------- */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 22px;
+}
+.tiles article h3 { font-size: 1.4rem; margin-top: 12px; }
+.tiles article p:not(.meta) { margin-top: 6px; }
+.tiles article a { display: inline-block; margin-top: 8px; font-weight: 500; }
+.cover { aspect-ratio: 630 / 500; }
+
+/* ---------- Android apps ---------- */
+.app {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: start;
+  margin-top: 26px;
+  padding-top: 26px;
+  border-top: 1px solid var(--rule);
+}
+.app:first-of-type { border-top: 0; padding-top: 0; }
+.app-text p { margin-top: 8px; max-width: 56ch; }
+.app-text a { display: inline-block; margin-top: 10px; font-weight: 500; }
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: 88px;
+  padding-top: 28px;
+  padding-bottom: 56px;
+  border-top: 2px solid var(--ink);
+}
+footer .links { margin-top: 10px; }
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 860px) {
+  main section { grid-template-columns: 1fr; row-gap: 14px; padding-top: 52px; }
+  .columns, .tiles { grid-template-columns: 1fr; }
+  .app { grid-template-columns: 1fr; }
+  .gallery-feature { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .intro { padding-top: 56px; }
+  .gallery-feature { grid-template-columns: 1fr; }
+  .gallery-phone { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

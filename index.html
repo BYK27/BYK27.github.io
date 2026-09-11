@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vuk Aleksijević, Game Programmer</title>
+  <meta name="description" content="Game programmer working in C++ and Unreal Engine. Combat, gameplay UI and online features on Injustice 2 Mobile.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Vuk Aleksijević, Game Programmer">
+  <meta property="og:description" content="Combat, gameplay UI and online features in Unreal Engine with C++.">
+  <meta property="og:url" content="https://byk27.github.io/">
+  <meta property="og:image" content="https://byk27.github.io/media/og-image.jpg">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    // Media files that haven't been uploaded yet are removed instead of showing as broken.
+    function dropMissing(el) {
+      const figure = el.closest("figure");
+      const gallery = el.closest(".gallery");
+      (figure || el).remove();
+      if (gallery && !gallery.querySelector("figure")) gallery.remove();
+    }
+  </script>
+</head>
+<body>
+
+<header class="intro wrap">
+  <h1 class="name">Vuk Aleksijević</h1>
+  <p class="role">Game Programmer, C++ and Unreal Engine</p>
+  <p class="lead">
+    I'm a game programmer at Sperasoft, where I've spent the last two years on Injustice 2 Mobile.
+    I work across combat, gameplay UI and online features in Unreal Engine, using C++ and Blueprints.
+    Outside work I'm building a top-down action game with a friend and making games at jams.
+  </p>
+  <nav class="links" aria-label="Contact and CV">
+    <a class="primary" href="cv/Vuk_Aleksijevic_CV.pdf" download>Download CV</a>
+    <a href="mailto:vuk.aleksijevic2001@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/">LinkedIn</a>
+    <a href="https://github.com/BYK27">GitHub</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="wrap" id="top-down-game" aria-labelledby="h-featured">
+    <h2 id="h-featured">Current project</h2>
+    <div class="body">
+      <h3>Top-down action game</h3>
+      <p class="meta">Unreal Engine 4 and C++. Co-developed with a friend, in development.</p>
+
+      <div class="gallery gallery-feature">
+        <figure class="wide">
+          <video src="media/topdown-clip.mp4" poster="media/topdown-poster.jpg"
+                 autoplay muted loop playsinline preload="metadata"
+                 aria-label="Gameplay clip from the top-down action game"
+                 onerror="dropMissing(this)"></video>
+        </figure>
+        <figure>
+          <a href="media/topdown-1.jpg"><img src="media/topdown-1.jpg" alt="Hideout hub with interactive stations" loading="lazy" onerror="dropMissing(this)"></a>
+        </figure>
+        <figure>
+          <a href="media/topdown-2.jpg"><img src="media/topdown-2.jpg" alt="Raid gameplay" loading="lazy" onerror="dropMissing(this)"></a>
+        </figure>
+        <figure>
+          <a href="media/topdown-3.jpg"><img src="media/topdown-3.jpg" alt="Time of day change during a raid" loading="lazy" onerror="dropMissing(this)"></a>
+        </figure>
+      </div>
+
+      <p>
+        A top-down game built around a hideout hub you return to between raids. The hub has interactive
+        stations, and the raid loop runs on custom subsystems for timing and time of day.
+      </p>
+      <ul class="squares">
+        <li>Gameplay code in C++, with Blueprint subclasses on top</li>
+        <li>Input through Enhanced Input, with Gameplay Tags across gameplay systems</li>
+        <li>Custom subsystems for raid timing, time of day and widget management</li>
+      </ul>
+      <!-- A short paragraph on one system you're proud of (the problem, your approach, what you'd change) works well here. -->
+    </div>
+  </section>
+
+  <section class="wrap" id="injustice" aria-labelledby="h-work">
+    <h2 id="h-work">Professional work</h2>
+    <div class="body">
+      <h3>Injustice 2 Mobile</h3>
+      <p class="meta">By NetherRealm Studios. At Sperasoft since August 2024, credited in the game.</p>
+
+      <div class="columns">
+        <div>
+          <h4>Combat and gameplay</h4>
+          <p>Built 2 new playable characters on my own, from the first gameplay pass to release, plus 10 artifacts and the boss mechanics for four levels of a Solo Raid event.</p>
+        </div>
+        <div>
+          <h4>UI and online</h4>
+          <p>Built a store offers system end to end, the UI and online side of the Solo Raid rework, and a restructured store, in UMG, C++ and the game's online services.</p>
+        </div>
+        <div>
+          <h4>Live ops and team</h4>
+          <p>Fixed a live crash affecting around 10,000 players, wrote pipeline tools in Python, mentor a junior developer and interview candidates.</p>
+        </div>
+      </div>
+      <p class="note">I can't share footage or code from the project, but I'm happy to walk through how these systems work in an interview.</p>
+    </div>
+  </section>
+
+  <section class="wrap" id="jams" aria-labelledby="h-jams">
+    <h2 id="h-jams">Game jams</h2>
+    <div class="body">
+      <p class="meta">Godot and GDScript. Four-person teams, where I wrote most of the code.</p>
+      <div class="tiles">
+        <article>
+          <figure class="cover"><img src="media/jam-mosquito.jpg" alt="Not the Mosquito Again" loading="lazy" onerror="dropMissing(this)"></figure>
+          <h3>Not the Mosquito Again</h3>
+          <p class="meta">Ludum Dare 56</p>
+          <p>Multiplayer game.</p>
+          <a>Play on itch.io</a>
+        </article>
+        <article>
+          <figure class="cover"><img src="media/jam-hoverbald.jpg" alt="HoverBald" loading="lazy" onerror="dropMissing(this)"></figure>
+          <h3>HoverBald</h3>
+          <p class="meta">Retro Game Jam 2024</p>
+          <p>Procedurally generated obstacle-avoidance game.</p>
+          <a>Play on itch.io</a>
+        </article>
+        <article>
+          <figure class="cover"><img src="media/jam-fauxtelja.jpg" alt="Fauxtelja" loading="lazy" onerror="dropMissing(this)"></figure>
+          <h3>Fauxtelja</h3>
+          <p class="meta">SKC Game Jam 2025</p>
+          <p>Strategy and resource-management game.</p>
+          <a>Play on itch.io</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="android" aria-labelledby="h-android">
+    <h2 id="h-android">Android apps</h2>
+    <div class="body">
+      <p class="meta">Kotlin, Jetpack Compose, Room, MVVM.</p>
+
+      <article class="app">
+        <div class="app-text">
+          <h3>Adaptive-speed RSVP reader</h3>
+          <p>
+            My master's thesis. It shows text one word at a time and adapts how long each word stays on screen
+            to its length and punctuation. It imports PDFs and web articles, calibrates to the reader's speed,
+            and was evaluated in a user study with 9 participants against reading on paper.
+          </p>
+          <a>Source on GitHub</a>
+        </div>
+        <div class="gallery gallery-phone">
+          <figure><a href="media/rsvp-1.jpg"><img src="media/rsvp-1.jpg" alt="RSVP reader showing a single word" loading="lazy" onerror="dropMissing(this)"></a></figure>
+          <figure><a href="media/rsvp-2.jpg"><img src="media/rsvp-2.jpg" alt="RSVP reader library and settings" loading="lazy" onerror="dropMissing(this)"></a></figure>
+        </div>
+      </article>
+
+      <article class="app">
+        <div class="app-text">
+          <h3>TenThousand</h3>
+          <p>
+            A habit and focus-timer app with a gacha system for unlocking animated backgrounds,
+            rendered with AGSL shaders.
+          </p>
+          <a>Source on GitHub</a>
+        </div>
+        <div class="gallery gallery-phone">
+          <figure>
+            <video src="media/tenthousand-clip.mp4" autoplay muted loop playsinline preload="metadata"
+                   aria-label="Animated shader background in TenThousand" onerror="dropMissing(this)"></video>
+          </figure>
+          <figure><a href="media/tenthousand-1.jpg"><img src="media/tenthousand-1.jpg" alt="TenThousand focus timer" loading="lazy" onerror="dropMissing(this)"></a></figure>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap" id="systems" aria-labelledby="h-systems">
+    <h2 id="h-systems">Systems projects</h2>
+    <div class="body">
+      <p class="meta">University of Belgrade, School of Electrical Engineering.</p>
+      <ul class="squares">
+        <li><b>Operating system kernel for RISC-V</b> in C++ and RISC-V assembly, with threads, memory management and time-sharing.</li>
+        <li><b>MicroJava compiler</b> in Java, from lexical analysis to code generation.</li>
+        <li><b>Assembler, linker and emulator</b> for a custom architecture.</li>
+        <li><b>CPU design</b> in VHDL/Verilog, verified on FPGA.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Based in Belgrade, Serbia, and open to remote roles.</p>
+  <nav class="links" aria-label="Contact">
+    <a href="mailto:vuk.aleksijevic2001@gmail.com">vuk.aleksijevic2001@gmail.com</a>
+    <a href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/">LinkedIn</a>
+    <a href="cv/Vuk_Aleksijevic_CV.pdf" download>CV (PDF)</a>
+  </nav>
+</footer>
+
+<script>
+  // Respect reduced-motion: no autoplay, show controls instead.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll("video[autoplay]").forEach((v) => {
+      v.removeAttribute("autoplay");
+      v.pause();
+      v.controls = true;
+    });
+  }
+</script>
+</body>
+</html>
