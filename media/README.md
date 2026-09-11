@@ -1,17 +1,27 @@
 # Media
 
-Upload images and clips here using exactly these names. Anything missing is simply hidden on the site.
+Screenshots already in place. To change one, replace the file with the same name.
 
-| File | Where it shows | Format |
-|---|---|---|
-| background.mp4 | Start screen background (looping, muted) | 16:9, 1920×1080 or 1280×720, H.264, no audio, under 15 MB |
-| background.jpg | Start screen background if there's no clip | 1920×1080 JPG |
-| topdown-clip.mp4 | Top-down game page, main video | 16:9, 1280×720, H.264, no audio, under 10 MB |
-| topdown-poster.jpg | First frame of that clip | 1280×720 JPG |
-| topdown-1.jpg, topdown-2.jpg, topdown-3.jpg | Top-down game page gallery | 16:9, about 1600 px wide |
-| jam-mosquito.jpg, jam-hoverbald.jpg, jam-fauxtelja.jpg | Game jam cards | 630×500 (itch.io cover size) |
-| rsvp-1.jpg, rsvp-2.jpg | PupilPrism page | Portrait phone screenshots |
-| tenthousand-clip.mp4, tenthousand-1.jpg | TenThousand page | Portrait screen recording / screenshot |
-| og-image.jpg | Preview when the link is shared on LinkedIn | 1200×630 JPG |
+| File | Where it shows |
+|---|---|
+| background.jpg | Start screen background |
+| og-image.jpg | Preview image when the link is shared on LinkedIn |
+| topdown-1.jpg | Top-down game page, main image |
+| topdown-2.jpg, topdown-3.jpg | Top-down game page gallery |
+| jam-fauxtelja-play.png, jam-hoverbald-play.png, jam-mosquito-1.jpg | Shown when hovering a game jam card |
+| jam-fauxtelja-title.png, jam-hoverbald-title.png | Title screens row on the jams page |
+| jam-mosquito-2.jpg | Spare second Mosquito screenshot, not used yet |
+| pupilprism-1.png, -2.png, -3.png | PupilPrism page, phone mockups |
+| tenthousand-1.png, -2.png | TenThousand page, phone mockups |
 
-The start screen darkens the left side automatically, so any screenshot works as a background.
+Optional extras, hidden until you add them:
+
+| File | Effect |
+|---|---|
+| topdown-clip.mp4 | Replaces the still image at the top of the top-down game page. 16:9, 1280×720, H.264, no audio, under 10 MB |
+| background.mp4 | Replaces background.jpg on the start screen with a looping clip |
+
+Record clips with OBS, then compress in HandBrake using "Fast 720p30" and remove the audio track.
+
+Note: until you add the two optional clips, the browser logs a harmless 404 for
+`background.mp4` and `topdown-clip.mp4`. Nothing breaks; the still images are used instead.

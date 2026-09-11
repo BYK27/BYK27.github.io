@@ -294,9 +294,10 @@
         <span class="pill">Co-developed with a friend</span>
       </div>
 
-      <figure class="hero">
-        <video src="media/topdown-clip.mp4" poster="media/topdown-poster.jpg" autoplay muted loop playsinline preload="metadata"
-               aria-label="Gameplay clip" onerror="dropMissing(this)"></video>
+      <figure class="hero" data-hero>
+        <video src="media/topdown-clip.mp4" autoplay muted loop playsinline preload="metadata"
+               aria-label="Gameplay clip" onerror="this.remove()"></video>
+        <img src="media/topdown-1.jpg" alt="Hideout street with police pursuing the player" onerror="dropMissing(this)">
       </figure>
 
       <div class="prose">
@@ -304,10 +305,9 @@
         <p><b>Tech:</b> gameplay code in C++ with Blueprint subclasses on top, Enhanced Input, Gameplay Tags, and custom subsystems for raid timing, time of day and widget management.</p>
       </div>
 
-      <div class="gallery gallery-3">
-        <figure><a href="media/topdown-1.jpg" target="_blank"><img src="media/topdown-1.jpg" alt="Hideout hub with interactive stations" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        <figure><a href="media/topdown-2.jpg" target="_blank"><img src="media/topdown-2.jpg" alt="Raid gameplay" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        <figure><a href="media/topdown-3.jpg" target="_blank"><img src="media/topdown-3.jpg" alt="Time of day change during a raid" loading="lazy" onerror="dropMissing(this)"></a></figure>
+      <div class="gallery gallery-2">
+        <figure><a href="media/topdown-2.jpg" target="_blank"><img src="media/topdown-2.jpg" alt="Contextual interaction prompt on a parked car" loading="lazy" onerror="dropMissing(this)"></a></figure>
+        <figure><a href="media/topdown-3.jpg" target="_blank"><img src="media/topdown-3.jpg" alt="Interaction prompt when talking to an NPC" loading="lazy" onerror="dropMissing(this)"></a></figure>
       </div>
     </div>
   </div>
@@ -322,26 +322,55 @@
       </div>
       <p class="prose">Made in Godot and GDScript with four-person teams, where I wrote most of the code.</p>
 
-      <div class="cards">
-        <a class="card" href="https://ldj.am/56/not-the-mosquito-again" target="_blank" rel="noopener">
-          <figure class="cover"><img src="media/jam-mosquito.jpg" alt="" loading="lazy" onerror="dropMissing(this)"></figure>
-          <h3>Not the Mosquito Again</h3>
-          <div class="pills"><span class="pill">Ludum Dare 56</span><span class="pill">Multiplayer</span></div>
-          <span class="card-link">View on Ludum Dare <svg class="icon"><use href="#i-external"/></svg></span>
+      <div class="jam-cards">
+        <a class="jam" href="https://byk27.itch.io/fauxtelja" target="_blank" rel="noopener">
+          <div class="jam-media">
+            <span class="jam-placeholder" aria-hidden="true"><svg class="icon"><use href="#i-gamepad"/></svg></span>
+            <img src="media/jam-fauxtelja-play.png" alt="Fauxtelja turn-based board" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="jam-body">
+            <h3>Fauxtelja</h3>
+            <div class="pills"><span class="pill">SKC Game Jam 2025</span><span class="pill">Strategy</span></div>
+            <p>Turn-based strategy and resource management, where the furniture bites back.</p>
+            <span class="card-link">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></span>
+          </div>
         </a>
-        <a class="card" href="https://stevant.itch.io/hoverbald" target="_blank" rel="noopener">
-          <figure class="cover"><img src="media/jam-hoverbald.jpg" alt="" loading="lazy" onerror="dropMissing(this)"></figure>
-          <h3>HoverBald</h3>
-          <div class="pills"><span class="pill">Retro Game Jam 2024</span><span class="pill">Procedural</span></div>
-          <span class="card-link">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></span>
+
+        <a class="jam" href="https://stevant.itch.io/hoverbald" target="_blank" rel="noopener">
+          <div class="jam-media">
+            <span class="jam-placeholder" aria-hidden="true"><svg class="icon"><use href="#i-gamepad"/></svg></span>
+            <img src="media/jam-hoverbald-play.png" alt="HoverBald gameplay" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="jam-body">
+            <h3>HoverBald</h3>
+            <div class="pills"><span class="pill">Retro Game Jam 2024</span><span class="pill">Procedural</span></div>
+            <p>Hover through procedurally generated caves without hitting anything, in a CRT-filtered retro look.</p>
+            <span class="card-link">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></span>
+          </div>
         </a>
-        <a class="card" href="https://byk27.itch.io/fauxtelja" target="_blank" rel="noopener">
-          <figure class="cover"><img src="media/jam-fauxtelja.jpg" alt="" loading="lazy" onerror="dropMissing(this)"></figure>
-          <h3>Fauxtelja</h3>
-          <div class="pills"><span class="pill">SKC Game Jam 2025</span><span class="pill">Strategy</span></div>
-          <span class="card-link">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></span>
+
+        <a class="jam" href="https://github.com/GopnikJammeri/LDJam56" target="_blank" rel="noopener">
+          <div class="jam-media">
+            <span class="jam-placeholder" aria-hidden="true"><svg class="icon"><use href="#i-gamepad"/></svg></span>
+            <img src="media/jam-mosquito-1.jpg" alt="Not the Mosquito Again gameplay" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="jam-body">
+            <h3>Not the Mosquito Again</h3>
+            <div class="pills"><span class="pill">Ludum Dare 56</span><span class="pill">Multiplayer</span></div>
+            <p>One player is a mosquito, the other is trying to sleep. Made in 72 hours.</p>
+            <span class="card-link">Source on GitHub <svg class="icon"><use href="#i-external"/></svg></span>
+          </div>
         </a>
       </div>
+
+      <p class="hint">Hover a game to see a screenshot.</p>
+
+      <h3 class="section-title">Title screens</h3>
+      <div class="gallery gallery-2">
+        <figure><a href="media/jam-fauxtelja-title.png" target="_blank"><img src="media/jam-fauxtelja-title.png" alt="Fauxtelja title screen" loading="lazy" onerror="dropMissing(this)"></a></figure>
+        <figure><a href="media/jam-hoverbald-title.png" target="_blank"><img src="media/jam-hoverbald-title.png" alt="HoverBald title screen" loading="lazy" onerror="dropMissing(this)"></a></figure>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -358,19 +387,21 @@
         <span class="pill">Android</span><span class="pill">Kotlin</span><span class="pill">Jetpack Compose</span><span class="pill">Room</span>
       </div>
 
-      <div class="split">
-        <div class="prose">
-          <p>An adaptive-speed RSVP reader. It shows text one word at a time and adapts how long each word stays on screen to its length and punctuation.</p>
-          <p>It imports PDFs and web articles, calibrates to the reader's speed, and generates PDF reports from a self-paced reading test. I evaluated it in a user study with 9 participants against reading on paper.</p>
-          <div class="actions">
-            <a class="btn btn-ghost" href="https://github.com/BYK27/PupilPrism" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
-          </div>
-        </div>
-        <div class="gallery gallery-phone">
-          <figure><a href="media/rsvp-1.jpg" target="_blank"><img src="media/rsvp-1.jpg" alt="PupilPrism showing a single word" loading="lazy" onerror="dropMissing(this)"></a></figure>
-          <figure><a href="media/rsvp-2.jpg" target="_blank"><img src="media/rsvp-2.jpg" alt="PupilPrism library" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        </div>
+      <div class="prose">
+        <p>An adaptive-speed RSVP reader. It shows text one word at a time and adapts how long each word stays on screen to its length and punctuation, with the pivot letter highlighted so the eye doesn't have to move.</p>
+        <p>It imports PDFs and web articles, calibrates the reader's optimal speed with a comprehension test, tracks words read and streaks, and generates PDF reports. I evaluated it in a user study with 9 participants against reading on paper.</p>
       </div>
+
+      <div class="actions">
+        <a class="btn btn-ghost" href="https://github.com/BYK27/PupilPrism" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>Source on GitHub</a>
+      </div>
+
+      <div class="phones">
+        <figure><img src="media/pupilprism-1.png" alt="RSVP reader showing one word at a time with a speed control" loading="lazy" onerror="dropMissing(this)"><figcaption>Reader, one word at a time</figcaption></figure>
+        <figure><img src="media/pupilprism-2.png" alt="Dashboard with reading assessment, words read and library" loading="lazy" onerror="dropMissing(this)"><figcaption>Dashboard and library</figcaption></figure>
+        <figure><img src="media/pupilprism-3.png" alt="Appearance settings with theme colour picker" loading="lazy" onerror="dropMissing(this)"><figcaption>Theming</figcaption></figure>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -387,18 +418,19 @@
         <span class="pill">Android</span><span class="pill">Kotlin</span><span class="pill">Jetpack Compose</span><span class="pill">AGSL shaders</span>
       </div>
 
-      <div class="split">
-        <div class="prose">
-          <p>A habit and focus-timer app with a gacha system for unlocking animated backgrounds, rendered with AGSL shaders.</p>
-          <div class="actions">
-            <a class="btn btn-ghost" href="https://github.com/BYK27/TenThousand" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
-          </div>
-        </div>
-        <div class="gallery gallery-phone">
-          <figure><video src="media/tenthousand-clip.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Animated shader background" onerror="dropMissing(this)"></video></figure>
-          <figure><a href="media/tenthousand-1.jpg" target="_blank"><img src="media/tenthousand-1.jpg" alt="TenThousand focus timer" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        </div>
+      <div class="prose">
+        <p>A habit and focus-timer app. Finishing a focus session earns currency, which is spent on a gacha system that unlocks animated backgrounds rendered with AGSL shaders, complete with a pity counter and a daily featured pull.</p>
       </div>
+
+      <div class="actions">
+        <a class="btn btn-ghost" href="https://github.com/BYK27/TenThousand" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>Source on GitHub</a>
+      </div>
+
+      <div class="phones">
+        <figure><img src="media/tenthousand-1.png" alt="Gacha screen with an animated shader background and pity counter" loading="lazy" onerror="dropMissing(this)"><figcaption>Gacha pull screen</figcaption></figure>
+        <figure><img src="media/tenthousand-2.png" alt="Focus timer counting down with earned currency" loading="lazy" onerror="dropMissing(this)"><figcaption>Focus timer</figcaption></figure>
+      </div>
+    </div>
     </div>
   </div>
 </section>

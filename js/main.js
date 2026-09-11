@@ -121,6 +121,17 @@ function updateBackground() {
 
 reducedMotion.addEventListener?.("change", updateBackground);
 
+// ---------- Optional hero clips ----------
+// A page hero shows its still image until a video file is actually there.
+
+for (const hero of document.querySelectorAll("[data-hero]")) {
+  const video = hero.querySelector("video");
+  if (!video) continue;
+  const useClip = () => hero.classList.add("has-clip");
+  if (video.readyState >= 2) useClip();
+  else video.addEventListener("loadeddata", useClip, { once: true });
+}
+
 // ---------- Boot ----------
 
 function showBuildDate() {
