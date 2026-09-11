@@ -10,7 +10,6 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const background = new Background(document.getElementById("bg"));
 
 let openGroup = null;
-let hasBackgroundMedia = false;
 let lastOption = null;
 
 // ---------- Menu groups ----------
@@ -71,6 +70,7 @@ function route() {
     lastOption?.focus({ preventScroll: true });
   }
   updateBackground();
+  syncJamAutoplay();
 }
 
 function closePage() {
@@ -91,35 +91,68 @@ document.addEventListener("keydown", (event) => {
 window.addEventListener("hashchange", route);
 
 // ---------- Background ----------
-// media/background.mp4 or media/background.jpg replaces the animated map when uploaded.
-
-function useBackgroundMedia() {
-  hasBackgroundMedia = true;
-  body.classList.add("has-media");
-  updateBackground();
-}
-
-function watchBackgroundMedia() {
-  const video = document.getElementById("bg-video");
-  const image = document.getElementById("bg-image");
-
-  if (video) {
-    if (video.readyState >= 2) useBackgroundMedia();
-    else video.addEventListener("loadeddata", useBackgroundMedia, { once: true });
-  }
-  if (image) {
-    if (image.complete && image.naturalWidth > 0) useBackgroundMedia();
-    else image.addEventListener("load", useBackgroundMedia, { once: true });
-  }
-}
 
 function updateBackground() {
   background.setMotion(!reducedMotion.matches);
-  // The map only animates while it's actually visible.
-  background.setActive(!hasBackgroundMedia && body.dataset.view === "start");
+  // The terrain only animates while the start screen is actually visible.
+  background.setActive(body.dataset.view === "start");
 }
 
 reducedMotion.addEventListener?.("change", updateBackground);
+
+// ---------- Game jam previews ----------
+// Each card cycles through its own screenshots while hovered or focused.
+// Touch devices get no hover event, so there the cards cycle on their own.
+
+const SHOT_MS = 1800;
+const noHover = window.matchMedia("(hover: none)");
+const jamCards = [];
+
+for (const card of document.querySelectorAll("[data-shots]")) {
+  const shots = [...card.querySelectorAll(".jam-media img")];
+  const dots = [...card.querySelectorAll(".jam-dots span")];
+  if (shots.length === 0) continue;
+
+  const entry = { card, shots, dots, index: 0, timer: 0 };
+  jamCards.push(entry);
+
+  const show = (i) => {
+    entry.index = i % entry.shots.length;
+    entry.shots.forEach((img, n) => img.classList.toggle("is-active", n === entry.index));
+    entry.dots.forEach((dot, n) => dot.classList.toggle("is-on", n === entry.index));
+  };
+  entry.show = show;
+  show(0);
+
+  const start = () => {
+    if (entry.timer) return;
+    card.classList.add("is-showing");
+    entry.timer = setInterval(() => show(entry.index + 1), SHOT_MS);
+  };
+  const stop = () => {
+    clearInterval(entry.timer);
+    entry.timer = 0;
+    card.classList.remove("is-showing");
+    show(0);
+  };
+  entry.start = start;
+  entry.stop = stop;
+
+  card.addEventListener("pointerenter", (e) => { if (e.pointerType !== "touch") start(); });
+  card.addEventListener("pointerleave", (e) => { if (e.pointerType !== "touch") stop(); });
+  card.addEventListener("focus", start);
+  card.addEventListener("blur", stop);
+}
+
+function syncJamAutoplay() {
+  const onJams = noHover.matches && location.hash === "#jams";
+  for (const entry of jamCards) {
+    if (onJams) entry.start();
+    else if (!entry.card.matches(":hover, :focus-visible")) entry.stop();
+  }
+}
+
+noHover.addEventListener?.("change", syncJamAutoplay);
 
 // ---------- Optional hero clips ----------
 // A page hero shows its still image until a video file is actually there.
@@ -144,5 +177,4 @@ function showBuildDate() {
 
 showBuildDate();
 setGroup(null);
-watchBackgroundMedia();
 route();

@@ -81,21 +81,46 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Background ---------- */
 .backdrop { position: fixed; inset: 0; z-index: 0; }
-.backdrop canvas, .backdrop img, .backdrop video {
+.backdrop canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* Slow drifting colour, so the screen is never completely still */
+.aurora {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  border-radius: 50%;
+  filter: blur(30px);
+  will-change: transform;
 }
-.has-media .backdrop canvas { visibility: hidden; }
+.aurora-a {
+  width: 70vw;
+  height: 70vw;
+  left: -18vw;
+  top: -26vw;
+  background: radial-gradient(circle, rgba(91, 123, 255, 0.22) 0%, rgba(91, 123, 255, 0.06) 45%, transparent 68%);
+  animation: drift-a 22s ease-in-out infinite alternate;
+}
+.aurora-b {
+  width: 52vw;
+  height: 52vw;
+  right: -14vw;
+  top: 8vh;
+  background: radial-gradient(circle, rgba(64, 200, 235, 0.14) 0%, rgba(53, 82, 214, 0.06) 48%, transparent 70%);
+  animation: drift-b 27s ease-in-out infinite alternate;
+}
+@keyframes drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(8vw, 6vh, 0) scale(1.14); }
+}
+@keyframes drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.1); }
+  to { transform: translate3d(-7vw, 10vh, 0) scale(0.94); }
+}
 .shade {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(10, 13, 22, 0.96) 0%, rgba(10, 13, 22, 0.82) 34%, rgba(10, 13, 22, 0.42) 72%, rgba(10, 13, 22, 0.6) 100%),
-    linear-gradient(0deg, rgba(10, 13, 22, 0.9) 0%, rgba(10, 13, 22, 0.1) 45%),
-    linear-gradient(180deg, rgba(10, 13, 22, 0.7) 0%, rgba(10, 13, 22, 0) 22%);
+    radial-gradient(115% 80% at 16% 44%, rgba(10, 13, 22, 0.93) 0%, rgba(10, 13, 22, 0.5) 34%, rgba(10, 13, 22, 0) 66%),
+    linear-gradient(180deg, rgba(10, 13, 22, 0.75) 0%, rgba(10, 13, 22, 0) 26%),
+    linear-gradient(0deg, rgba(10, 13, 22, 0.8) 0%, rgba(10, 13, 22, 0) 34%);
 }
 
 /* ---------- Start screen ---------- */
@@ -131,10 +156,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .logo h1 span { display: block; }
 .logo h1 span:first-child {
-  background: linear-gradient(90deg, #7F98FF, var(--accent));
+  background: linear-gradient(100deg, #6E86F0 8%, #AFC0FF 34%, #5B7BFF 60%, #6E86F0 92%);
+  background-size: 260% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+.js .logo h1 span:first-child { animation: sheen 9s ease-in-out infinite; }
+@keyframes sheen {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 .logo-role {
   margin-top: 16px;
@@ -367,32 +398,60 @@ figure a { display: block; height: 100%; }
 
 
 
-/* Phone mockups, always visible */
+/* Phone mockups: small, overlapping and fanned, each one lifts on hover */
 .phones {
   display: flex;
-  flex-wrap: wrap;
-  gap: 28px;
-  margin-top: 32px;
+  align-items: flex-end;
+  padding: 34px 0 26px 26px;
+  perspective: 1200px;
 }
-.phones figure { width: 208px; }
-.phones img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  background: none;
-  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.55));
+.phones figure {
+  position: relative;
+  width: 132px;
+  flex: none;
+  margin-left: -30px;
+  transition: transform 0.32s var(--ease), filter 0.32s;
+  filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.55));
 }
+.phones figure:first-child { margin-left: 0; }
+.phones figure:nth-child(1) { transform: rotate(-7deg) translateY(10px); z-index: 1; }
+.phones figure:nth-child(2) { transform: rotate(-1deg); z-index: 2; }
+.phones figure:nth-child(3) { transform: rotate(6deg) translateY(12px); z-index: 3; }
+.phones img { width: 100%; height: auto; background: none; }
 .phones figcaption {
-  margin-top: 12px;
+  position: absolute;
+  left: 50%;
+  bottom: -26px;
+  transform: translateX(-50%) translateY(6px);
+  width: max-content;
+  max-width: 160px;
   text-align: center;
-  font-size: 0.9rem;
-  color: var(--dim);
+  font-size: 0.82rem;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.3s var(--ease);
+  pointer-events: none;
+}
+.phones figure:hover,
+.phones figure:focus-within {
+  transform: rotate(0deg) translateY(-18px) scale(1.14);
+  z-index: 6;
+  filter: drop-shadow(0 26px 44px rgba(53, 82, 214, 0.45));
+}
+.phones figure:hover figcaption,
+.phones figure:focus-within figcaption { opacity: 1; transform: translateX(-50%); }
+.phones a { display: block; border-radius: 18px; }
+
+@media (hover: none) {
+  .phones { flex-wrap: wrap; gap: 14px; padding-left: 0; }
+  .phones figure { margin-left: 0; transform: none !important; width: 122px; }
+  .phones figcaption { position: static; opacity: 1; transform: none; margin-top: 10px; max-width: none; }
 }
 
-/* Game jam cards: the screenshot appears on hover */
+/* Game jam cards: each card reveals its own screenshots on hover */
 .jam-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 18px;
   margin-top: 28px;
 }
@@ -406,7 +465,7 @@ figure a { display: block; height: 100%; }
   background: var(--surface);
   transition: transform 0.22s var(--ease), border-color 0.22s, box-shadow 0.22s, background 0.22s;
 }
-/* Fixed media area, so revealing the screenshot never shifts the layout */
+/* Fixed media area, so revealing a screenshot never shifts the layout */
 .jam-media {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -416,8 +475,22 @@ figure a { display: block; height: 100%; }
   display: grid;
   place-items: center;
 }
-.jam-placeholder { color: rgba(154, 163, 184, 0.35); transition: opacity 0.2s; }
-.jam-placeholder .icon { width: 34px; height: 34px; }
+.jam-idle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(154, 163, 184, 0.42);
+  transition: opacity 0.2s, transform 0.3s var(--ease);
+}
+.jam-idle .icon { width: 30px; height: 30px; }
+.jam-idle em {
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 .jam-media img {
   position: absolute;
   inset: 0;
@@ -427,9 +500,28 @@ figure a { display: block; height: 100%; }
   object-fit: contain;
   background: #05070D;
   opacity: 0;
-  transform: scale(1.03);
-  transition: opacity 0.28s var(--ease), transform 0.45s var(--ease);
+  transform: scale(1.04);
+  transition: opacity 0.45s var(--ease), transform 0.6s var(--ease);
 }
+.jam-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.jam-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: background 0.3s;
+}
+.jam-dots span.is-on { background: var(--accent); }
+
 .jam-body { display: flex; flex-direction: column; gap: 10px; padding: 0 4px; }
 .jam h3 { font-size: 1.4rem; font-weight: 600; line-height: 1.2; }
 .jam .pills { margin-top: 0; }
@@ -442,13 +534,13 @@ figure a { display: block; height: 100%; }
   background: linear-gradient(135deg, rgba(91, 123, 255, 0.22), rgba(18, 23, 37, 0.95) 50%, rgba(91, 123, 255, 0.12));
   box-shadow: 0 18px 44px rgba(53, 82, 214, 0.28);
 }
-.jam:hover .jam-media img, .jam:focus-visible .jam-media img { opacity: 1; transform: none; }
-.jam:hover .jam-placeholder, .jam:focus-visible .jam-placeholder { opacity: 0; }
+.jam.is-showing .jam-idle { opacity: 0; transform: scale(0.9); }
+.jam.is-showing .jam-media img.is-active { opacity: 1; transform: none; }
+.jam.is-showing .jam-dots { opacity: 1; }
+.jam:hover p, .jam:focus-visible p { color: #DDE3F2; }
 
-/* Touch devices have no hover, so the screenshots simply stay visible */
+/* Touch devices have no hover; the script cycles the shots automatically there */
 @media (hover: none) {
-  .jam-media img { opacity: 1; transform: none; }
-  .jam-placeholder { display: none; }
   .hint { display: none; }
 }
 
@@ -515,8 +607,7 @@ figure a { display: block; height: 100%; }
   .page { padding: 20px 20px 80px; }
   .page-head { flex-direction: column; gap: 4px; }
   .facts, .highlights, .skill-groups { grid-template-columns: 1fr; }
-  .phones { gap: 18px; justify-content: center; }
-  .phones figure { width: calc(50% - 12px); max-width: 208px; }
+  .phones { padding-left: 14px; }
 }
 @media (max-width: 520px) {
   body { font-size: 16px; }

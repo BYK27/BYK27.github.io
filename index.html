@@ -51,11 +51,11 @@
   <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
 </svg>
 
-<!-- Background: your own image or clip in media/ covers the animated map when present -->
+<!-- Animated wireframe terrain, drawn in js/background.js -->
 <div class="backdrop" aria-hidden="true">
+  <span class="aurora aurora-a"></span>
+  <span class="aurora aurora-b"></span>
   <canvas id="bg"></canvas>
-  <img id="bg-image" src="media/background.jpg" alt="" onerror="this.remove()">
-  <video id="bg-video" src="media/background.mp4" autoplay muted loop playsinline onerror="this.remove()"></video>
   <div class="shade"></div>
 </div>
 
@@ -323,10 +323,15 @@
       <p class="prose">Made in Godot and GDScript with four-person teams, where I wrote most of the code.</p>
 
       <div class="jam-cards">
-        <a class="jam" href="https://byk27.itch.io/fauxtelja" target="_blank" rel="noopener">
+        <a class="jam" href="https://byk27.itch.io/fauxtelja" target="_blank" rel="noopener" data-shots>
           <div class="jam-media">
-            <span class="jam-placeholder" aria-hidden="true"><svg class="icon"><use href="#i-gamepad"/></svg></span>
+            <span class="jam-idle" aria-hidden="true">
+              <svg class="icon"><use href="#i-gamepad"/></svg>
+              <em>Hover to preview</em>
+            </span>
+            <img src="media/jam-fauxtelja-title.png" alt="Fauxtelja title screen" loading="lazy" class="is-active" onerror="this.remove()">
             <img src="media/jam-fauxtelja-play.png" alt="Fauxtelja turn-based board" loading="lazy" onerror="this.remove()">
+            <span class="jam-dots" aria-hidden="true"><span></span><span></span></span>
           </div>
           <div class="jam-body">
             <h3>Fauxtelja</h3>
@@ -336,10 +341,15 @@
           </div>
         </a>
 
-        <a class="jam" href="https://stevant.itch.io/hoverbald" target="_blank" rel="noopener">
+        <a class="jam" href="https://stevant.itch.io/hoverbald" target="_blank" rel="noopener" data-shots>
           <div class="jam-media">
-            <span class="jam-placeholder" aria-hidden="true"><svg class="icon"><use href="#i-gamepad"/></svg></span>
+            <span class="jam-idle" aria-hidden="true">
+              <svg class="icon"><use href="#i-gamepad"/></svg>
+              <em>Hover to preview</em>
+            </span>
+            <img src="media/jam-hoverbald-title.png" alt="HoverBald title screen" loading="lazy" class="is-active" onerror="this.remove()">
             <img src="media/jam-hoverbald-play.png" alt="HoverBald gameplay" loading="lazy" onerror="this.remove()">
+            <span class="jam-dots" aria-hidden="true"><span></span><span></span></span>
           </div>
           <div class="jam-body">
             <h3>HoverBald</h3>
@@ -349,10 +359,15 @@
           </div>
         </a>
 
-        <a class="jam" href="https://github.com/GopnikJammeri/LDJam56" target="_blank" rel="noopener">
+        <a class="jam" href="https://github.com/GopnikJammeri/LDJam56" target="_blank" rel="noopener" data-shots>
           <div class="jam-media">
-            <span class="jam-placeholder" aria-hidden="true"><svg class="icon"><use href="#i-gamepad"/></svg></span>
-            <img src="media/jam-mosquito-1.jpg" alt="Not the Mosquito Again gameplay" loading="lazy" onerror="this.remove()">
+            <span class="jam-idle" aria-hidden="true">
+              <svg class="icon"><use href="#i-gamepad"/></svg>
+              <em>Hover to preview</em>
+            </span>
+            <img src="media/jam-mosquito-1.jpg" alt="Not the Mosquito Again gameplay" loading="lazy" class="is-active" onerror="this.remove()">
+            <img src="media/jam-mosquito-2.jpg" alt="Not the Mosquito Again, bomb charging up" loading="lazy" onerror="this.remove()">
+            <span class="jam-dots" aria-hidden="true"><span></span><span></span></span>
           </div>
           <div class="jam-body">
             <h3>Not the Mosquito Again</h3>
@@ -362,15 +377,6 @@
           </div>
         </a>
       </div>
-
-      <p class="hint">Hover a game to see a screenshot.</p>
-
-      <h3 class="section-title">Title screens</h3>
-      <div class="gallery gallery-2">
-        <figure><a href="media/jam-fauxtelja-title.png" target="_blank"><img src="media/jam-fauxtelja-title.png" alt="Fauxtelja title screen" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        <figure><a href="media/jam-hoverbald-title.png" target="_blank"><img src="media/jam-hoverbald-title.png" alt="HoverBald title screen" loading="lazy" onerror="dropMissing(this)"></a></figure>
-      </div>
-    </div>
     </div>
   </div>
 </section>
@@ -397,9 +403,9 @@
       </div>
 
       <div class="phones">
-        <figure><img src="media/pupilprism-1.png" alt="RSVP reader showing one word at a time with a speed control" loading="lazy" onerror="dropMissing(this)"><figcaption>Reader, one word at a time</figcaption></figure>
-        <figure><img src="media/pupilprism-2.png" alt="Dashboard with reading assessment, words read and library" loading="lazy" onerror="dropMissing(this)"><figcaption>Dashboard and library</figcaption></figure>
-        <figure><img src="media/pupilprism-3.png" alt="Appearance settings with theme colour picker" loading="lazy" onerror="dropMissing(this)"><figcaption>Theming</figcaption></figure>
+        <figure><a href="media/pupilprism-1.png" target="_blank"><img src="media/pupilprism-1.png" alt="RSVP reader showing one word at a time with a speed control" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Reader, one word at a time</figcaption></figure>
+        <figure><a href="media/pupilprism-2.png" target="_blank"><img src="media/pupilprism-2.png" alt="Dashboard with reading assessment, words read and library" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Dashboard and library</figcaption></figure>
+        <figure><a href="media/pupilprism-3.png" target="_blank"><img src="media/pupilprism-3.png" alt="Appearance settings with theme colour picker" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Theming</figcaption></figure>
       </div>
     </div>
     </div>
@@ -427,8 +433,8 @@
       </div>
 
       <div class="phones">
-        <figure><img src="media/tenthousand-1.png" alt="Gacha screen with an animated shader background and pity counter" loading="lazy" onerror="dropMissing(this)"><figcaption>Gacha pull screen</figcaption></figure>
-        <figure><img src="media/tenthousand-2.png" alt="Focus timer counting down with earned currency" loading="lazy" onerror="dropMissing(this)"><figcaption>Focus timer</figcaption></figure>
+        <figure><a href="media/tenthousand-1.png" target="_blank"><img src="media/tenthousand-1.png" alt="Gacha screen with an animated shader background and pity counter" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Gacha pull screen</figcaption></figure>
+        <figure><a href="media/tenthousand-2.png" target="_blank"><img src="media/tenthousand-2.png" alt="Focus timer counting down with earned currency" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Focus timer</figcaption></figure>
       </div>
     </div>
     </div>
