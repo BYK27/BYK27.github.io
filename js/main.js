@@ -1,328 +1,125 @@
-import { Input } from "./input.js";
-import { Sfx } from "./sfx.js";
 import { Background } from "./background.js";
 
-const SETTINGS_KEY = "vuk-portfolio-settings";
-const DEFAULT_SETTINGS = { sound: false, motion: true, classic: false };
-
-// ---------- Settings ----------
-
-function loadSettings() {
-  try {
-    return { ...DEFAULT_SETTINGS, ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}") };
-  } catch {
-    return { ...DEFAULT_SETTINGS };
-  }
-}
-
-function saveSettings() {
-  try {
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-  } catch {
-    // Private browsing can block storage; settings then last for this visit only.
-  }
-}
-
-const settings = loadSettings();
-
-// ---------- Elements ----------
-
-const root = document.documentElement;
 const body = document.body;
-const titleScreen = document.getElementById("title");
-const menuScreen = document.getElementById("menu");
-const menuItems = [...menuScreen.querySelectorAll(".menu-item")];
-const panels = new Map([...document.querySelectorAll(".panel")].map((p) => [p.id, p]));
-const previewImg = menuScreen.querySelector(".preview-img");
-const previewTitle = menuScreen.querySelector(".preview-title");
-const previewText = menuScreen.querySelector(".preview-text");
+const start = document.getElementById("start");
+const groupButtons = [...document.querySelectorAll(".group-btn")];
+const optionLists = new Map([...document.querySelectorAll(".options")].map((el) => [el.dataset.group, el]));
+const panels = new Map([...document.querySelectorAll(".panel")].map((el) => [el.id, el]));
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const sfx = new Sfx(settings.sound);
 const background = new Background(document.getElementById("bg"));
-const input = new Input();
 
-let selected = 0;
-let openPanelId = null;
-let menuEnteredAt = 0;
+let openGroup = null;
+let hasBackgroundMedia = false;
+let lastOption = null;
 
-// ---------- Navigation ----------
-// The URL hash is the single source of truth: "" title, "#menu" menu, "#career" etc. panels.
-// That keeps the browser back button working and makes every panel linkable.
+// ---------- Menu groups ----------
 
-function go(hash) {
-  if (hash) {
-    location.hash = hash;
-  } else {
-    history.pushState(null, "", location.pathname + location.search);
-    route();
+function setGroup(name) {
+  openGroup = name;
+  for (const button of groupButtons) {
+    button.setAttribute("aria-expanded", String(button.dataset.group === name));
   }
+  for (const [group, list] of optionLists) {
+    const isOpen = group === name;
+    list.classList.toggle("is-open", isOpen);
+    list.inert = !isOpen;
+  }
+  body.classList.toggle("menu-open", Boolean(name));
 }
+
+for (const button of groupButtons) {
+  button.addEventListener("click", () => {
+    setGroup(openGroup === button.dataset.group ? null : button.dataset.group);
+  });
+}
+
+// Clicking empty background closes the open group.
+start.addEventListener("click", (event) => {
+  if (!event.target.closest(".menu, .topbar")) setGroup(null);
+});
+
+// Remember which option opened a page so focus can return to it.
+for (const option of document.querySelectorAll('.option[href^="#"]')) {
+  option.addEventListener("click", () => { lastOption = option; });
+}
+
+// ---------- Pages ----------
+// The URL hash decides which page is open (#experience, #jams, ...), so the browser
+// back button closes pages and every page can be linked directly.
 
 function route() {
   const id = decodeURIComponent(location.hash.slice(1));
+  const panel = panels.get(id) || null;
 
-  if (root.classList.contains("classic")) {
-    applyClassic();
-    return;
+  for (const [panelId, el] of panels) {
+    const isOpen = el === panel;
+    el.classList.toggle("is-open", isOpen);
+    el.inert = !isOpen;
   }
 
-  if (panels.has(id)) {
-    const index = menuItems.findIndex((item) => item.dataset.target === id);
-    if (index >= 0) selected = index;
-    showPanel(id);
-  } else if (id === "menu") {
-    showMenu();
+  if (panel) {
+    setGroup(panel.dataset.group || null);
+    start.inert = true;
+    body.dataset.view = "page";
+    const scroller = panel.querySelector(".panel-scroll");
+    scroller.scrollTop = 0;
+    scroller.focus({ preventScroll: true });
   } else {
-    showTitle();
+    start.inert = false;
+    body.dataset.view = "start";
+    lastOption?.focus({ preventScroll: true });
   }
+  updateBackground();
 }
 
-function setScreen(name) {
-  body.dataset.screen = name;
-  titleScreen.inert = name !== "title";
-  menuScreen.inert = name !== "menu";
-  background.setActive(name !== "panel");
-}
-
-function showTitle() {
-  closePanels();
-  setScreen("title");
-  titleScreen.focus({ preventScroll: true });
-}
-
-function showMenu() {
-  closePanels();
-  setScreen("menu");
-  menuEnteredAt = performance.now();
-  select(selected, { sound: false });
-}
-
-function showPanel(id) {
-  closePanels();
-  setScreen("panel");
-  const panel = panels.get(id);
-  panel.classList.add("is-open");
-  panel.inert = false;
-  openPanelId = id;
-
-  const scroller = panel.querySelector(".panel-scroll");
-  scroller.scrollTop = 0;
-  const firstOption = panel.hasAttribute("data-list") ? panel.querySelector("[data-nav]") : null;
-  (firstOption || scroller).focus({ preventScroll: true });
-}
-
-function closePanels() {
-  for (const panel of panels.values()) {
-    panel.classList.remove("is-open");
-    panel.inert = true;
-  }
-  openPanelId = null;
-}
-
-function start() {
-  sfx.play("start");
-  go("menu");
-}
-
-function openSelected() {
-  sfx.play("confirm");
-  go(menuItems[selected].dataset.target);
-}
-
-function back() {
-  sfx.play("back");
-  if (body.dataset.screen === "panel") go("menu");
-  else go("");
-}
-
-// ---------- Menu ----------
-
-function select(index, { sound = true } = {}) {
-  const count = menuItems.length;
-  const next = (index + count) % count;
-  if (sound && next !== selected) sfx.play("move");
-  selected = next;
-
-  menuItems.forEach((item, i) => item.classList.toggle("is-selected", i === next));
-  menuItems[next].focus({ preventScroll: true });
-  updatePreview(menuItems[next]);
-}
-
-function updatePreview(item) {
-  previewTitle.textContent = item.dataset.title || item.textContent.trim();
-  previewText.textContent = item.dataset.desc || "";
-
-  const src = item.dataset.img;
-  if (src) {
-    previewImg.onerror = () => { previewImg.hidden = true; };
-    previewImg.onload = () => { previewImg.hidden = false; };
-    if (previewImg.getAttribute("src") !== src) previewImg.src = src;
-    else previewImg.hidden = !(previewImg.complete && previewImg.naturalWidth > 0);
-  } else {
-    previewImg.hidden = true;
-  }
-}
-
-menuItems.forEach((item, i) => {
-  item.addEventListener("mouseenter", () => {
-    if (body.dataset.screen === "menu" && i !== selected) select(i);
-  });
-  item.addEventListener("click", () => {
-    // Ignore the click that can arrive from the same key press that started the game.
-    if (performance.now() - menuEnteredAt < 250) return;
-    selected = i;
-    openSelected();
-  });
-});
-
-// ---------- Panels ----------
-
-function moveFocusIn(panel, direction) {
-  const items = [...panel.querySelectorAll("[data-nav]")];
-  if (items.length === 0) return;
-  const current = items.indexOf(document.activeElement);
-  const next = current < 0 ? 0 : (current + direction + items.length) % items.length;
-  items[next].focus();
-  sfx.play("move");
-}
-
-function scrollPanel(panel, direction) {
-  panel.querySelector(".panel-scroll").scrollBy({ top: direction * 200, behavior: "smooth" });
-}
-
-document.querySelectorAll("[data-back]").forEach((button) => button.addEventListener("click", back));
-
-// ---------- Input ----------
-
-function isActivatable(element) {
-  return Boolean(element && element.matches && element.matches("a[href], button"));
-}
-
-input.on((action, { source, event }) => {
-  body.dataset.input = source;
-  if (root.classList.contains("classic")) return;
-
-  const screen = body.dataset.screen;
-  const focusedControl = source === "keyboard" && isActivatable(event.target);
-
-  if (screen === "title") {
-    if (action === "tab" || (event && event.repeat)) return;
-    // Enter on a focused link or button (Classic view, CV) should do that, not start.
-    if (focusedControl && action === "confirm") return;
-    event?.preventDefault();
-    start();
-    return;
-  }
-
-  if (screen === "menu") {
-    if (action === "up") { event?.preventDefault(); select(selected - 1); }
-    else if (action === "down") { event?.preventDefault(); select(selected + 1); }
-    else if (action === "back") { event?.preventDefault(); back(); }
-    else if (action === "confirm" && !focusedControl) { event?.preventDefault(); openSelected(); }
-    // A focused menu button handles Enter itself through its click event.
-    return;
-  }
-
-  if (screen === "panel") {
-    const panel = panels.get(openPanelId);
-    if (!panel) return;
-
-    if (action === "back") {
-      event?.preventDefault();
-      back();
-    } else if (action === "up" || action === "down") {
-      const direction = action === "up" ? -1 : 1;
-      if (panel.hasAttribute("data-list")) {
-        event?.preventDefault();
-        moveFocusIn(panel, direction);
-      } else if (source === "gamepad") {
-        scrollPanel(panel, direction);
-      }
-      // Keyboard arrows in content panels scroll natively.
-    } else if (action === "confirm" && source === "gamepad" && isActivatable(document.activeElement)) {
-      document.activeElement.click();
-    }
-  }
-});
-
-titleScreen.addEventListener("click", (event) => {
-  if (event.target.closest("a, button")) return;
-  body.dataset.input = "pointer";
-  start();
-});
-
-// ---------- Options ----------
-
-function renderOptions() {
-  document.querySelectorAll('[data-option="sound"]').forEach((button) => {
-    button.setAttribute("aria-pressed", String(settings.sound));
-    button.querySelector("[data-value]").textContent = settings.sound ? "On" : "Off";
-  });
-  document.querySelectorAll('[data-option="motion"]').forEach((button) => {
-    button.setAttribute("aria-pressed", String(settings.motion));
-    button.querySelector("[data-value]").textContent = settings.motion ? "On" : "Off";
-  });
-}
-
-function applyMotion() {
-  background.setMotion(settings.motion && !reducedMotion.matches);
-}
-
-function toggleOption(name) {
-  if (name === "sound") {
-    settings.sound = !settings.sound;
-    sfx.setEnabled(settings.sound);
-    sfx.play("confirm");
-  } else if (name === "motion") {
-    settings.motion = !settings.motion;
-    applyMotion();
-    sfx.play("confirm");
-  } else if (name === "classic") {
-    settings.classic = true;
-    saveSettings();
-    enterClassic();
-    return;
-  }
-  saveSettings();
-  renderOptions();
-}
-
-document.addEventListener("click", (event) => {
-  const option = event.target.closest("[data-option]");
-  if (option) toggleOption(option.dataset.option);
-});
-
-reducedMotion.addEventListener?.("change", applyMotion);
-
-// ---------- Classic view ----------
-
-function applyClassic() {
-  titleScreen.inert = false;
-  menuScreen.inert = false;
-  for (const panel of panels.values()) {
-    panel.inert = false;
-    panel.classList.remove("is-open");
-  }
-  body.dataset.screen = "classic";
-  background.setActive(false);
-}
-
-function enterClassic() {
-  root.classList.add("classic");
+function closePage() {
   history.pushState(null, "", location.pathname + location.search);
-  applyClassic();
-  window.scrollTo(0, 0);
+  route();
 }
 
-function exitClassic() {
-  settings.classic = false;
-  saveSettings();
-  root.classList.remove("classic");
-  go("");
+for (const button of document.querySelectorAll("[data-close]")) {
+  button.addEventListener("click", closePage);
 }
 
-document.getElementById("exit-classic").addEventListener("click", exitClassic);
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  if (body.dataset.view === "page") closePage();
+  else setGroup(null);
+});
+
+window.addEventListener("hashchange", route);
+
+// ---------- Background ----------
+// media/background.mp4 or media/background.jpg replaces the animated map when uploaded.
+
+function useBackgroundMedia() {
+  hasBackgroundMedia = true;
+  body.classList.add("has-media");
+  updateBackground();
+}
+
+function watchBackgroundMedia() {
+  const video = document.getElementById("bg-video");
+  const image = document.getElementById("bg-image");
+
+  if (video) {
+    if (video.readyState >= 2) useBackgroundMedia();
+    else video.addEventListener("loadeddata", useBackgroundMedia, { once: true });
+  }
+  if (image) {
+    if (image.complete && image.naturalWidth > 0) useBackgroundMedia();
+    else image.addEventListener("load", useBackgroundMedia, { once: true });
+  }
+}
+
+function updateBackground() {
+  background.setMotion(!reducedMotion.matches);
+  // The map only animates while it's actually visible.
+  background.setActive(!hasBackgroundMedia && body.dataset.view === "start");
+}
+
+reducedMotion.addEventListener?.("change", updateBackground);
 
 // ---------- Boot ----------
 
@@ -334,10 +131,7 @@ function showBuildDate() {
     `Build ${modified.getFullYear()}.${pad(modified.getMonth() + 1)}.${pad(modified.getDate())}`;
 }
 
-titleScreen.tabIndex = -1;
 showBuildDate();
-renderOptions();
-applyMotion();
-window.addEventListener("hashchange", route);
-window.addEventListener("popstate", route);
+setGroup(null);
+watchBackgroundMedia();
 route();

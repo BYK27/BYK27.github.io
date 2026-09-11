@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="classic">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,17 +13,7 @@
   <meta property="og:image" content="https://byk27.github.io/media/og-image.jpg">
 
   <script>
-    // Runs before first paint so the page never flashes the wrong layout.
-    (function () {
-      var root = document.documentElement;
-      root.classList.add("js");
-      try {
-        var saved = JSON.parse(localStorage.getItem("vuk-portfolio-settings") || "{}");
-        if (!saved.classic) root.classList.remove("classic");
-      } catch (e) {
-        root.classList.remove("classic");
-      }
-    })();
+    document.documentElement.classList.replace("no-js", "js");
 
     // Media that hasn't been uploaded yet is removed instead of showing as broken.
     function dropMissing(el) {
@@ -37,325 +27,251 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
   <link rel="stylesheet" href="style.css">
   <script type="module" src="js/main.js"></script>
 </head>
-<body data-screen="title" data-input="keyboard">
+<body data-view="start">
 
-<canvas id="bg" aria-hidden="true"></canvas>
-<div class="vignette" aria-hidden="true"></div>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- Icons: Lucide (ISC license, lucide.dev); GitHub mark: Simple Icons (CC0) -->
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-gamepad" viewBox="0 0 24 24"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+  <symbol id="i-file-down" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></symbol>
+  <symbol id="i-joystick" viewBox="0 0 24 24"><path d="M21 17a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1z"/><path d="M6 15v-2"/><path d="M12 15V9"/><circle cx="12" cy="6" r="3"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+</svg>
 
-<!-- Header for the classic (scrolling) layout -->
-<header class="classic-header">
-  <h1 class="classic-name">Vuk Aleksijević</h1>
-  <p class="classic-role">Game Programmer, C++ and Unreal Engine</p>
-  <p class="lead">
-    I'm a game programmer at Sperasoft, where I've spent the last two years on Injustice 2 Mobile.
-    I work across combat, gameplay UI and online features in Unreal Engine, using C++ and Blueprints.
-    Outside work I'm building a top-down action game with a friend and making games at jams.
-  </p>
-  <nav class="classic-links" aria-label="Contact and CV">
-    <a class="btn" href="cv/Vuk_Aleksijevic_CV.pdf" download>Download CV</a>
-    <a href="mailto:vuk.aleksijevic2001@gmail.com">Email</a>
-    <a href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://github.com/BYK27" target="_blank" rel="noopener">GitHub</a>
-    <button type="button" class="linklike" id="exit-classic">Switch to menu view</button>
-  </nav>
-</header>
+<!-- Background: your own image or clip in media/ covers the animated map when present -->
+<div class="backdrop" aria-hidden="true">
+  <canvas id="bg"></canvas>
+  <img id="bg-image" src="media/background.jpg" alt="" onerror="this.remove()">
+  <video id="bg-video" src="media/background.mp4" autoplay muted loop playsinline onerror="this.remove()"></video>
+  <div class="shade"></div>
+</div>
 
-<!-- Title screen -->
-<section id="title" class="screen" aria-label="Title screen">
-  <div class="title-top">
-    <span id="build">Build 2026.09</span>
+<!-- ===================== Start menu ===================== -->
+<main id="start" class="start">
+  <header class="topbar">
+    <a class="icon-btn" href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg class="icon"><use href="#i-linkedin"/></svg>
+    </a>
+    <a class="icon-btn" href="https://github.com/BYK27" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg class="icon"><use href="#i-github"/></svg>
+    </a>
+    <a class="btn" href="cv/Vuk_Aleksijevic_CV.pdf" download>
+      <svg class="icon"><use href="#i-file-down"/></svg>Download CV
+    </a>
+  </header>
+
+  <div class="logo">
+    <h1><span>Vuk</span> <span>Aleksijević</span></h1>
+    <p class="logo-role">Game Programmer</p>
+    <p class="logo-tag"><b>C++</b> and <b>Unreal Engine</b>. Combat, gameplay UI and online features on Injustice 2 Mobile.</p>
   </div>
 
-  <div class="title-center">
-    <h1 class="logo"><span>Vuk</span> <span>Aleksijević</span></h1>
-    <p class="badge"><span>Game Programmer</span></p>
-    <p class="press">
-      <span class="press-key">Press any key to start</span>
-      <span class="press-tap">Tap to start</span>
-    </p>
-  </div>
-
-  <div class="title-bottom">
-    <span>© 2026 Vuk Aleksijević</span>
-    <span class="title-links">
-      <button type="button" class="linklike" data-option="classic">Classic view</button>
-      <a href="cv/Vuk_Aleksijevic_CV.pdf" download>CV (PDF)</a>
-    </span>
-  </div>
-</section>
-
-<!-- Main menu -->
-<section id="menu" class="screen" aria-label="Main menu">
-  <div class="hud-top">
-    <div class="wordmark">
-      <span class="wm-name">Vuk Aleksijević</span>
-      <span class="wm-role">Game Programmer</span>
-    </div>
-    <div class="hud-actions">
-      <a href="cv/Vuk_Aleksijevic_CV.pdf" download>CV (PDF)</a>
-      <button type="button" class="linklike" data-option="sound" aria-pressed="false">Sound: <span data-value>Off</span></button>
-    </div>
-  </div>
-
-  <nav class="menu-list" aria-label="Main menu">
-    <ul>
-      <li><button type="button" class="menu-item" data-target="continue" data-title="Top-down action game"
-          data-desc="My current project: a top-down action game in Unreal Engine 4 and C++, co-developed with a friend."
-          data-img="media/topdown-1.jpg">Continue</button></li>
-      <li><button type="button" class="menu-item" data-target="career" data-title="Injustice 2 Mobile"
-          data-desc="Two years on Injustice 2 Mobile at Sperasoft: new characters, combat systems, gameplay UI and online features.">Career</button></li>
-      <li><button type="button" class="menu-item" data-target="arcade" data-title="Game jams"
-          data-desc="Three game jam entries made in Godot with four-person teams."
-          data-img="media/jam-fauxtelja.jpg">Arcade</button></li>
-      <li><button type="button" class="menu-item" data-target="sidequests" data-title="Android apps"
-          data-desc="Android apps in Kotlin: my master's thesis reading app and a focus timer with gacha unlocks.">Side Quests</button></li>
-      <li><button type="button" class="menu-item" data-target="skills" data-title="Skills and education"
-          data-desc="Languages, engines, systems projects and education.">Skill Tree</button></li>
-      <li><button type="button" class="menu-item" data-target="credits" data-title="Contact"
-          data-desc="Contact details, CV and a little about me.">Credits</button></li>
-      <li><button type="button" class="menu-item" data-target="options" data-title="Options"
-          data-desc="Sound, background motion and a classic scrolling layout of this page.">Options</button></li>
+  <nav class="menu" aria-label="Main menu">
+    <ul class="groups">
+      <li>
+        <button type="button" class="group-btn" data-group="info" aria-expanded="false" aria-controls="opts-info">
+          <svg class="icon"><use href="#i-user"/></svg><span>My info</span>
+          <svg class="icon chevron"><use href="#i-chevron"/></svg>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="group-btn" data-group="contact" aria-expanded="false" aria-controls="opts-contact">
+          <svg class="icon"><use href="#i-mail"/></svg><span>Contact details</span>
+          <svg class="icon chevron"><use href="#i-chevron"/></svg>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="group-btn" data-group="projects" aria-expanded="false" aria-controls="opts-projects">
+          <svg class="icon"><use href="#i-gamepad"/></svg><span>Projects</span>
+          <svg class="icon chevron"><use href="#i-chevron"/></svg>
+        </button>
+      </li>
     </ul>
+
+    <div class="options" id="opts-info" data-group="info">
+      <p class="options-title">My info</p>
+      <a class="option" href="#about">
+        <svg class="icon"><use href="#i-user"/></svg>
+        <span><b>About me</b><small>Who I am and what I work on</small></span>
+      </a>
+      <a class="option" href="#experience">
+        <svg class="icon"><use href="#i-briefcase"/></svg>
+        <span><b>Experience</b><small>Injustice 2 Mobile at Sperasoft</small></span>
+      </a>
+      <a class="option" href="#skills">
+        <svg class="icon"><use href="#i-cap"/></svg>
+        <span><b>Skills and education</b><small>Languages, engines, degrees</small></span>
+      </a>
+      <a class="option" href="cv/Vuk_Aleksijevic_CV.pdf" download>
+        <svg class="icon"><use href="#i-file-down"/></svg>
+        <span><b>Download CV</b><small>PDF, 2 pages</small></span>
+      </a>
+    </div>
+
+    <div class="options" id="opts-contact" data-group="contact">
+      <p class="options-title">Contact details</p>
+      <a class="option" href="mailto:vuk.aleksijevic2001@gmail.com">
+        <svg class="icon"><use href="#i-mail"/></svg>
+        <span><b>Email</b><small>vuk.aleksijevic2001@gmail.com</small></span>
+      </a>
+      <a class="option" href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/" target="_blank" rel="noopener">
+        <svg class="icon"><use href="#i-linkedin"/></svg>
+        <span><b>LinkedIn</b><small>Vuk Aleksijević</small></span>
+      </a>
+      <a class="option" href="https://github.com/BYK27" target="_blank" rel="noopener">
+        <svg class="icon"><use href="#i-github"/></svg>
+        <span><b>GitHub</b><small>github.com/BYK27</small></span>
+      </a>
+      <a class="option" href="cv/Vuk_Aleksijevic_CV.pdf" download>
+        <svg class="icon"><use href="#i-file-down"/></svg>
+        <span><b>Download CV</b><small>PDF, 2 pages</small></span>
+      </a>
+    </div>
+
+    <div class="options" id="opts-projects" data-group="projects">
+      <p class="options-title">Projects</p>
+      <a class="option" href="#topdown">
+        <svg class="icon"><use href="#i-gamepad"/></svg>
+        <span><b>Top-down action game</b><small>Unreal Engine 4, in development</small></span>
+      </a>
+      <a class="option" href="#jams">
+        <svg class="icon"><use href="#i-joystick"/></svg>
+        <span><b>Game jams</b><small>Three games made in Godot</small></span>
+      </a>
+      <a class="option" href="#pupilprism">
+        <svg class="icon"><use href="#i-phone"/></svg>
+        <span><b>PupilPrism</b><small>Android reading app, master's thesis</small></span>
+      </a>
+      <a class="option" href="#tenthousand">
+        <svg class="icon"><use href="#i-phone"/></svg>
+        <span><b>TenThousand</b><small>Android focus timer</small></span>
+      </a>
+      <a class="option" href="#systems">
+        <svg class="icon"><use href="#i-cpu"/></svg>
+        <span><b>Systems projects</b><small>OS kernel, compiler, toolchain</small></span>
+      </a>
+    </div>
   </nav>
 
-  <aside class="preview" aria-live="polite">
-    <img class="preview-img" alt="" hidden>
-    <p class="preview-title"></p>
-    <p class="preview-text"></p>
-  </aside>
-</section>
+  <p class="build" id="build">Build 2026.09</p>
+</main>
 
-<!-- Panels: one per menu entry. In classic view they are shown one after another. -->
+<!-- ===================== Pages ===================== -->
 
-<section class="panel" id="continue" aria-labelledby="continue-h">
+<section class="panel" id="about" data-group="info" aria-labelledby="about-h">
   <div class="panel-scroll" tabindex="-1">
-    <div class="panel-inner">
-      <button type="button" class="back" data-back>Back <kbd>Esc</kbd></button>
-      <h2 id="continue-h">Continue</h2>
-      <p class="panel-sub">Current project</p>
-
-      <div class="title-row">
-        <h3>Top-down action game</h3>
-        <span class="tag"><span>In development</span></span>
+    <div class="page">
+      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
+      <div class="page-head">
+        <h2 id="about-h">About me</h2>
       </div>
-      <p class="meta">Unreal Engine 4 and C++. Co-developed with a friend.</p>
-
-      <div class="gallery gallery-feature">
-        <figure class="wide">
-          <video src="media/topdown-clip.mp4" poster="media/topdown-poster.jpg"
-                 autoplay muted loop playsinline preload="metadata"
-                 aria-label="Gameplay clip from the top-down action game"
-                 onerror="dropMissing(this)"></video>
-        </figure>
-        <figure><a href="media/topdown-1.jpg" target="_blank"><img src="media/topdown-1.jpg" alt="Hideout hub with interactive stations" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        <figure><a href="media/topdown-2.jpg" target="_blank"><img src="media/topdown-2.jpg" alt="Raid gameplay" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        <figure><a href="media/topdown-3.jpg" target="_blank"><img src="media/topdown-3.jpg" alt="Time of day change during a raid" loading="lazy" onerror="dropMissing(this)"></a></figure>
+      <p class="tagline"><b>Game programmer</b> by trade, <b>game maker</b> in my free time.</p>
+      <div class="prose">
+        <p>I'm a game programmer at Sperasoft, where I've spent the last two years on Injustice 2 Mobile. I work across combat, gameplay UI and online features in Unreal Engine, using C++ and Blueprints, and I've shipped new playable characters, combat items, raid bosses and store features to a live game.</p>
+        <p>Outside work I'm building a top-down action game in Unreal Engine with a friend, and I make games at jams. I have a master's degree in software engineering from the University of Belgrade.</p>
       </div>
 
-      <p>
-        A top-down game built around a hideout hub you return to between raids. The hub has interactive
-        stations, and the raid loop runs on custom subsystems for timing and time of day.
-      </p>
-      <ul class="squares">
-        <li>Gameplay code in C++, with Blueprint subclasses on top</li>
-        <li>Input through Enhanced Input, with Gameplay Tags across gameplay systems</li>
-        <li>Custom subsystems for raid timing, time of day and widget management</li>
-      </ul>
+      <dl class="facts">
+        <div><dt>Based in</dt><dd>Belgrade, Serbia, open to remote roles</dd></div>
+        <div><dt>Currently</dt><dd>Sperasoft, a Keywords Studio</dd></div>
+        <div><dt>Languages</dt><dd>Serbian, English, Italian</dd></div>
+        <div><dt>When not coding</dt><dd>Video games, drawing, cycling, the gym and cooking</dd></div>
+      </dl>
+
+      <div class="actions">
+        <a class="btn" href="cv/Vuk_Aleksijevic_CV.pdf" download><svg class="icon"><use href="#i-file-down"/></svg>Download CV</a>
+        <a class="btn btn-ghost" href="mailto:vuk.aleksijevic2001@gmail.com"><svg class="icon"><use href="#i-mail"/></svg>Email me</a>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="panel" id="career" aria-labelledby="career-h">
+<section class="panel" id="experience" data-group="info" aria-labelledby="experience-h">
   <div class="panel-scroll" tabindex="-1">
-    <div class="panel-inner">
-      <button type="button" class="back" data-back>Back <kbd>Esc</kbd></button>
-      <h2 id="career-h">Career</h2>
-      <p class="panel-sub">Injustice 2 Mobile at Sperasoft, a Keywords Studio</p>
-
-      <p class="meta">Live-service fighting game by NetherRealm Studios, on iOS and Android. Credited in the game.</p>
+    <div class="page">
+      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
+      <div class="page-head">
+        <h2 id="experience-h">Injustice 2 Mobile</h2>
+        <span class="page-meta">Aug 2024 – present</span>
+      </div>
+      <div class="pills">
+        <span class="pill">Sperasoft, a Keywords Studio</span>
+        <span class="pill">NetherRealm Studios</span>
+        <span class="pill">iOS and Android</span>
+        <span class="pill">Credited</span>
+      </div>
+      <p class="prose">A live-service fighting game. I work in C++, Blueprints and UMG, with TypeScript and Python for online and tooling work.</p>
 
       <ul class="roles">
         <li><span>Junior Software Developer II</span><span class="when">Jan 2025 – present</span></li>
         <li><span>Junior Software Developer</span><span class="when">Aug 2024 – Jan 2025</span></li>
       </ul>
 
-      <h3 class="section-h">Achievements</h3>
-      <ul class="achievements">
-        <li>
-          <span class="ach-icon" aria-hidden="true"></span>
-          <div><p class="ach-title">Two new fighters</p><p>Implemented 2 new playable characters on my own, from the first gameplay pass to release: passives, special attacks, VFX setup and gear bonuses.</p></div>
-        </li>
-        <li>
-          <span class="ach-icon" aria-hidden="true"></span>
-          <div><p class="ach-title">Artifact collection</p><p>Implemented 10 artifacts, equippable items with their own combat effects.</p></div>
-        </li>
-        <li>
-          <span class="ach-icon" aria-hidden="true"></span>
-          <div><p class="ach-title">Raid bosses</p><p>Built the boss mechanics for four levels of a Solo Raid event and playtested them with Game Design.</p></div>
-        </li>
-        <li>
-          <span class="ach-icon" aria-hidden="true"></span>
-          <div><p class="ach-title">Open for business</p><p>Built a store offers system end to end, from a new loot table class to the purchase flow, purchase limits and a new currency.</p></div>
-        </li>
-        <li>
-          <span class="ach-icon" aria-hidden="true"></span>
-          <div><p class="ach-title">Mode rework</p><p>Delivered the UI and online side of the Solo Raid rework: premium purchase, training mode, tutorial and achievements.</p></div>
-        </li>
-        <li>
-          <span class="ach-icon" aria-hidden="true"></span>
-          <div><p class="ach-title">Crash fixed</p><p>Diagnosed and fixed a live crash affecting around 10,000 players.</p></div>
-        </li>
-        <li>
-          <span class="ach-icon" aria-hidden="true"></span>
-          <div><p class="ach-title">Party leader</p><p>Mentoring a junior developer and interviewing candidates for technical roles.</p></div>
-        </li>
-      </ul>
+      <h3 class="section-title">Highlights</h3>
+      <div class="highlights">
+        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-gamepad"/></svg></span>
+          <div><b>Two new playable characters</b><p>Implemented on my own, from the first gameplay pass to release: passives, special attacks, VFX setup and gear bonuses.</p></div></div>
+        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-cpu"/></svg></span>
+          <div><b>10 artifacts</b><p>Equippable items with their own combat effects.</p></div></div>
+        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-joystick"/></svg></span>
+          <div><b>Raid bosses</b><p>Boss mechanics for four levels of a Solo Raid event, playtested with Game Design.</p></div></div>
+        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-briefcase"/></svg></span>
+          <div><b>Store offers system</b><p>Built end to end, from a new loot table class to the purchase flow, purchase limits and a new currency.</p></div></div>
+        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-phone"/></svg></span>
+          <div><b>Solo Raid rework</b><p>The UI and online side: premium purchase, training mode, tutorial and achievements.</p></div></div>
+        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-cpu"/></svg></span>
+          <div><b>Live crash fix</b><p>Diagnosed and fixed a crash affecting around 10,000 players.</p></div></div>
+        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-user"/></svg></span>
+          <div><b>Mentoring and hiring</b><p>Mentoring a junior developer and interviewing candidates for technical roles.</p></div></div>
+      </div>
 
       <p class="note">I can't share footage or code from the project, but I'm happy to walk through how these systems work in an interview.</p>
     </div>
   </div>
 </section>
 
-<section class="panel" id="arcade" aria-labelledby="arcade-h">
+<section class="panel" id="skills" data-group="info" aria-labelledby="skills-h">
   <div class="panel-scroll" tabindex="-1">
-    <div class="panel-inner">
-      <button type="button" class="back" data-back>Back <kbd>Esc</kbd></button>
-      <h2 id="arcade-h">Arcade</h2>
-      <p class="panel-sub">Game jams</p>
-      <p class="meta">Made in Godot and GDScript with four-person teams, where I wrote most of the code.</p>
-
-      <div class="cabinets">
-        <article class="cabinet">
-          <figure class="cover"><img src="media/jam-mosquito.jpg" alt="Not the Mosquito Again" loading="lazy" onerror="dropMissing(this)"></figure>
-          <div class="cabinet-body">
-            <h3>Not the Mosquito Again</h3>
-            <p class="meta">Ludum Dare 56</p>
-            <p>Multiplayer game.</p>
-            <a class="btn" href="https://ldj.am/56/not-the-mosquito-again" target="_blank" rel="noopener">View on Ludum Dare</a>
-          </div>
-        </article>
-        <article class="cabinet">
-          <figure class="cover"><img src="media/jam-hoverbald.jpg" alt="HoverBald" loading="lazy" onerror="dropMissing(this)"></figure>
-          <div class="cabinet-body">
-            <h3>HoverBald</h3>
-            <p class="meta">Retro Game Jam 2024</p>
-            <p>Procedurally generated obstacle-avoidance game.</p>
-            <a class="btn" href="https://stevant.itch.io/hoverbald" target="_blank" rel="noopener">Play on itch.io</a>
-          </div>
-        </article>
-        <article class="cabinet">
-          <figure class="cover"><img src="media/jam-fauxtelja.jpg" alt="Fauxtelja" loading="lazy" onerror="dropMissing(this)"></figure>
-          <div class="cabinet-body">
-            <h3>Fauxtelja</h3>
-            <p class="meta">SKC Game Jam 2025</p>
-            <p>Strategy and resource-management game.</p>
-            <a class="btn" href="https://byk27.itch.io/fauxtelja" target="_blank" rel="noopener">Play on itch.io</a>
-          </div>
-        </article>
+    <div class="page">
+      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
+      <div class="page-head">
+        <h2 id="skills-h">Skills and education</h2>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="panel" id="sidequests" aria-labelledby="sidequests-h">
-  <div class="panel-scroll" tabindex="-1">
-    <div class="panel-inner">
-      <button type="button" class="back" data-back>Back <kbd>Esc</kbd></button>
-      <h2 id="sidequests-h">Side Quests</h2>
-      <p class="panel-sub">Android apps in Kotlin, Jetpack Compose and Room</p>
-
-      <article class="app">
-        <div class="app-text">
-          <h3>PupilPrism</h3>
-          <p class="meta">Adaptive-speed RSVP reader, my master's thesis</p>
-          <p>
-            Shows text one word at a time and adapts how long each word stays on screen to its length and
-            punctuation. It imports PDFs and web articles, calibrates to the reader's speed, and was evaluated
-            in a user study with 9 participants against reading on paper.
-          </p>
-          <a class="btn" href="https://github.com/BYK27/PupilPrism" target="_blank" rel="noopener">Source on GitHub</a>
-        </div>
-        <div class="gallery gallery-phone">
-          <figure><a href="media/rsvp-1.jpg" target="_blank"><img src="media/rsvp-1.jpg" alt="PupilPrism showing a single word" loading="lazy" onerror="dropMissing(this)"></a></figure>
-          <figure><a href="media/rsvp-2.jpg" target="_blank"><img src="media/rsvp-2.jpg" alt="PupilPrism library and settings" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        </div>
-      </article>
-
-      <article class="app">
-        <div class="app-text">
-          <h3>TenThousand</h3>
-          <p class="meta">Habit and focus timer</p>
-          <p>A focus-timer app with a gacha system for unlocking animated backgrounds, rendered with AGSL shaders.</p>
-          <a class="btn" href="https://github.com/BYK27/TenThousand" target="_blank" rel="noopener">Source on GitHub</a>
-        </div>
-        <div class="gallery gallery-phone">
-          <figure>
-            <video src="media/tenthousand-clip.mp4" autoplay muted loop playsinline preload="metadata"
-                   aria-label="Animated shader background in TenThousand" onerror="dropMissing(this)"></video>
-          </figure>
-          <figure><a href="media/tenthousand-1.jpg" target="_blank"><img src="media/tenthousand-1.jpg" alt="TenThousand focus timer" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="panel" id="skills" aria-labelledby="skills-h">
-  <div class="panel-scroll" tabindex="-1">
-    <div class="panel-inner">
-      <button type="button" class="back" data-back>Back <kbd>Esc</kbd></button>
-      <h2 id="skills-h">Skill Tree</h2>
-      <p class="panel-sub">Skills, systems projects and education</p>
-
-      <div class="tree">
-        <div class="branch">
+      <div class="skill-groups">
+        <div class="skill-group">
           <h3>Gameplay</h3>
-          <ul>
-            <li>Combat mechanics and status effects</li>
-            <li>Boss mechanics</li>
-            <li>Enemy AI</li>
-            <li>Save systems</li>
-            <li>Gameplay and HUD UI</li>
-          </ul>
+          <div class="pills"><span class="pill">Combat mechanics</span><span class="pill">Status effects</span><span class="pill">Boss mechanics</span><span class="pill">Enemy AI</span><span class="pill">Save systems</span><span class="pill">Gameplay and HUD UI</span></div>
         </div>
-        <div class="branch">
-          <h3>Engine</h3>
-          <ul>
-            <li>C++</li>
-            <li>Unreal Engine 4/5</li>
-            <li>Blueprints and UMG</li>
-            <li>Enhanced Input, Gameplay Tags, Subsystems</li>
-            <li>Godot and GDScript</li>
-          </ul>
+        <div class="skill-group">
+          <h3>Engines and languages</h3>
+          <div class="pills"><span class="pill">C++</span><span class="pill">Unreal Engine 4/5</span><span class="pill">Blueprints</span><span class="pill">UMG</span><span class="pill">Godot</span><span class="pill">Python</span><span class="pill">TypeScript</span><span class="pill">Kotlin</span><span class="pill">Java</span><span class="pill">C</span></div>
         </div>
-        <div class="branch">
+        <div class="skill-group">
           <h3>Online and tools</h3>
-          <ul>
-            <li>Online and live-service integration</li>
-            <li>Store and economy systems</li>
-            <li>TypeScript</li>
-            <li>Python tooling</li>
-            <li>Perforce, Git, Jira</li>
-          </ul>
+          <div class="pills"><span class="pill">Live-service integration</span><span class="pill">Store and economy systems</span><span class="pill">Perforce</span><span class="pill">Git</span><span class="pill">Jira</span></div>
         </div>
-        <div class="branch">
+        <div class="skill-group">
           <h3>Low level</h3>
-          <ul>
-            <li>RISC-V OS kernel in C++ and assembly</li>
-            <li>MicroJava compiler in Java</li>
-            <li>Assembler, linker and emulator</li>
-            <li>CPU design in VHDL/Verilog on FPGA</li>
-          </ul>
+          <div class="pills"><span class="pill">RISC-V OS kernel</span><span class="pill">Compiler</span><span class="pill">Assembler and linker</span><span class="pill">CPU design on FPGA</span></div>
         </div>
       </div>
-      <p class="meta also">Also: C, Kotlin, Java, SQL, Jetpack Compose, TensorFlow/Keras.</p>
 
-      <h3 class="section-h">Education</h3>
-      <p class="meta">University of Belgrade, School of Electrical Engineering</p>
+      <h3 class="section-title">Education</h3>
+      <p class="muted">University of Belgrade, School of Electrical Engineering</p>
       <ul class="roles">
         <li><span>Master's Degree, Software Engineering <span class="dim">GPA 9.5/10</span></span><span class="when">2026</span></li>
         <li><span>Bachelor's Degree, Computer Engineering and Information Theory</span><span class="when">2024</span></li>
@@ -364,80 +280,164 @@
   </div>
 </section>
 
-<section class="panel" id="credits" aria-labelledby="credits-h">
+<section class="panel" id="topdown" data-group="projects" aria-labelledby="topdown-h">
   <div class="panel-scroll" tabindex="-1">
-    <div class="panel-inner credits">
-      <button type="button" class="back" data-back>Back <kbd>Esc</kbd></button>
-      <h2 id="credits-h">Credits</h2>
-      <p class="panel-sub">Contact</p>
-
-      <dl class="roll">
-        <dt>Programmed by</dt>
-        <dd>Vuk Aleksijević</dd>
-
-        <dt>Based in</dt>
-        <dd>Belgrade, Serbia, open to remote roles</dd>
-
-        <dt>Contact</dt>
-        <dd>
-          <a href="mailto:vuk.aleksijevic2001@gmail.com">vuk.aleksijevic2001@gmail.com</a><br>
-          <a href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/" target="_blank" rel="noopener">LinkedIn</a>
-          &nbsp;/&nbsp;
-          <a href="https://github.com/BYK27" target="_blank" rel="noopener">GitHub</a>
-        </dd>
-
-        <dt>Full CV</dt>
-        <dd><a class="btn" href="cv/Vuk_Aleksijevic_CV.pdf" download>Download CV (PDF)</a></dd>
-
-        <dt>Languages</dt>
-        <dd>Serbian, English, Italian</dd>
-
-        <dt>When not coding</dt>
-        <dd>Video games, drawing, cycling, the gym and cooking</dd>
-      </dl>
-
-      <p class="thanks">Thanks for playing</p>
-    </div>
-  </div>
-</section>
-
-<section class="panel" id="options" aria-labelledby="options-h" data-list>
-  <div class="panel-scroll" tabindex="-1">
-    <div class="panel-inner">
-      <button type="button" class="back" data-back>Back <kbd>Esc</kbd></button>
-      <h2 id="options-h">Options</h2>
-      <p class="panel-sub">Sound, motion and layout</p>
-
-      <div class="opt-list">
-        <div class="opt-row">
-          <span>Sound effects</span>
-          <button type="button" class="opt-value" data-nav data-option="sound" aria-pressed="false"><span data-value>Off</span></button>
-        </div>
-        <div class="opt-row">
-          <span>Background motion</span>
-          <button type="button" class="opt-value" data-nav data-option="motion" aria-pressed="true"><span data-value>On</span></button>
-        </div>
-        <div class="opt-row">
-          <span>Layout</span>
-          <button type="button" class="opt-value" data-nav data-option="classic"><span>Classic view</span></button>
-        </div>
+    <div class="page">
+      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
+      <div class="page-head">
+        <h2 id="topdown-h">Top-down action game</h2>
+        <span class="page-meta">In development</span>
+      </div>
+      <div class="pills">
+        <span class="pill">Unreal Engine 4</span>
+        <span class="pill">C++</span>
+        <span class="pill">Co-developed with a friend</span>
       </div>
 
-      <h3 class="section-h">Controls</h3>
-      <ul class="controls">
-        <li><span><kbd>↑</kbd> <kbd>↓</kbd> or <kbd>W</kbd> <kbd>S</kbd></span><span>Navigate</span></li>
-        <li><span><kbd>Enter</kbd> or <kbd>Space</kbd></span><span>Select</span></li>
-        <li><span><kbd>Esc</kbd> or <kbd>Backspace</kbd></span><span>Back</span></li>
-        <li><span>Gamepad</span><span>D-pad or left stick, A to select, B to go back</span></li>
-      </ul>
+      <figure class="hero">
+        <video src="media/topdown-clip.mp4" poster="media/topdown-poster.jpg" autoplay muted loop playsinline preload="metadata"
+               aria-label="Gameplay clip" onerror="dropMissing(this)"></video>
+      </figure>
+
+      <div class="prose">
+        <p>A top-down game built around a hideout hub you return to between raids. The hub has interactive stations, and the raid loop runs on custom subsystems for timing and time of day.</p>
+        <p><b>Tech:</b> gameplay code in C++ with Blueprint subclasses on top, Enhanced Input, Gameplay Tags, and custom subsystems for raid timing, time of day and widget management.</p>
+      </div>
+
+      <div class="gallery gallery-3">
+        <figure><a href="media/topdown-1.jpg" target="_blank"><img src="media/topdown-1.jpg" alt="Hideout hub with interactive stations" loading="lazy" onerror="dropMissing(this)"></a></figure>
+        <figure><a href="media/topdown-2.jpg" target="_blank"><img src="media/topdown-2.jpg" alt="Raid gameplay" loading="lazy" onerror="dropMissing(this)"></a></figure>
+        <figure><a href="media/topdown-3.jpg" target="_blank"><img src="media/topdown-3.jpg" alt="Time of day change during a raid" loading="lazy" onerror="dropMissing(this)"></a></figure>
+      </div>
     </div>
   </div>
 </section>
 
-<footer class="hud-hints" aria-hidden="true">
-  <span class="hint-kb"><kbd>↑</kbd><kbd>↓</kbd> Navigate <kbd>Enter</kbd> Select <kbd>Esc</kbd> Back</span>
-  <span class="hint-pad"><kbd>D-pad</kbd> Navigate <kbd>A</kbd> Select <kbd>B</kbd> Back</span>
-</footer>
+<section class="panel" id="jams" data-group="projects" aria-labelledby="jams-h">
+  <div class="panel-scroll" tabindex="-1">
+    <div class="page">
+      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
+      <div class="page-head">
+        <h2 id="jams-h">Game jams</h2>
+      </div>
+      <p class="prose">Made in Godot and GDScript with four-person teams, where I wrote most of the code.</p>
+
+      <div class="cards">
+        <a class="card" href="https://ldj.am/56/not-the-mosquito-again" target="_blank" rel="noopener">
+          <figure class="cover"><img src="media/jam-mosquito.jpg" alt="" loading="lazy" onerror="dropMissing(this)"></figure>
+          <h3>Not the Mosquito Again</h3>
+          <div class="pills"><span class="pill">Ludum Dare 56</span><span class="pill">Multiplayer</span></div>
+          <span class="card-link">View on Ludum Dare <svg class="icon"><use href="#i-external"/></svg></span>
+        </a>
+        <a class="card" href="https://stevant.itch.io/hoverbald" target="_blank" rel="noopener">
+          <figure class="cover"><img src="media/jam-hoverbald.jpg" alt="" loading="lazy" onerror="dropMissing(this)"></figure>
+          <h3>HoverBald</h3>
+          <div class="pills"><span class="pill">Retro Game Jam 2024</span><span class="pill">Procedural</span></div>
+          <span class="card-link">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></span>
+        </a>
+        <a class="card" href="https://byk27.itch.io/fauxtelja" target="_blank" rel="noopener">
+          <figure class="cover"><img src="media/jam-fauxtelja.jpg" alt="" loading="lazy" onerror="dropMissing(this)"></figure>
+          <h3>Fauxtelja</h3>
+          <div class="pills"><span class="pill">SKC Game Jam 2025</span><span class="pill">Strategy</span></div>
+          <span class="card-link">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="pupilprism" data-group="projects" aria-labelledby="pupilprism-h">
+  <div class="panel-scroll" tabindex="-1">
+    <div class="page">
+      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
+      <div class="page-head">
+        <h2 id="pupilprism-h">PupilPrism</h2>
+        <span class="page-meta">Master's thesis, 2026</span>
+      </div>
+      <div class="pills">
+        <span class="pill">Android</span><span class="pill">Kotlin</span><span class="pill">Jetpack Compose</span><span class="pill">Room</span>
+      </div>
+
+      <div class="split">
+        <div class="prose">
+          <p>An adaptive-speed RSVP reader. It shows text one word at a time and adapts how long each word stays on screen to its length and punctuation.</p>
+          <p>It imports PDFs and web articles, calibrates to the reader's speed, and generates PDF reports from a self-paced reading test. I evaluated it in a user study with 9 participants against reading on paper.</p>
+          <div class="actions">
+            <a class="btn btn-ghost" href="https://github.com/BYK27/PupilPrism" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+          </div>
+        </div>
+        <div class="gallery gallery-phone">
+          <figure><a href="media/rsvp-1.jpg" target="_blank"><img src="media/rsvp-1.jpg" alt="PupilPrism showing a single word" loading="lazy" onerror="dropMissing(this)"></a></figure>
+          <figure><a href="media/rsvp-2.jpg" target="_blank"><img src="media/rsvp-2.jpg" alt="PupilPrism library" loading="lazy" onerror="dropMissing(this)"></a></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="tenthousand" data-group="projects" aria-labelledby="tenthousand-h">
+  <div class="panel-scroll" tabindex="-1">
+    <div class="page">
+      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
+      <div class="page-head">
+        <h2 id="tenthousand-h">TenThousand</h2>
+        <span class="page-meta">Personal project</span>
+      </div>
+      <div class="pills">
+        <span class="pill">Android</span><span class="pill">Kotlin</span><span class="pill">Jetpack Compose</span><span class="pill">AGSL shaders</span>
+      </div>
+
+      <div class="split">
+        <div class="prose">
+          <p>A habit and focus-timer app with a gacha system for unlocking animated backgrounds, rendered with AGSL shaders.</p>
+          <div class="actions">
+            <a class="btn btn-ghost" href="https://github.com/BYK27/TenThousand" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+          </div>
+        </div>
+        <div class="gallery gallery-phone">
+          <figure><video src="media/tenthousand-clip.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Animated shader background" onerror="dropMissing(this)"></video></figure>
+          <figure><a href="media/tenthousand-1.jpg" target="_blank"><img src="media/tenthousand-1.jpg" alt="TenThousand focus timer" loading="lazy" onerror="dropMissing(this)"></a></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="systems" data-group="projects" aria-labelledby="systems-h">
+  <div class="panel-scroll" tabindex="-1">
+    <div class="page">
+      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
+      <div class="page-head">
+        <h2 id="systems-h">Systems projects</h2>
+        <span class="page-meta">University of Belgrade</span>
+      </div>
+      <p class="prose">Low-level projects from my computer engineering studies.</p>
+
+      <div class="cards">
+        <div class="card static">
+          <h3>Operating system kernel</h3>
+          <div class="pills"><span class="pill">C++</span><span class="pill">RISC-V assembly</span></div>
+          <p>Threads, memory management and time-sharing on RISC-V.</p>
+        </div>
+        <div class="card static">
+          <h3>MicroJava compiler</h3>
+          <div class="pills"><span class="pill">Java</span></div>
+          <p>A complete compiler, from lexical analysis to code generation.</p>
+        </div>
+        <div class="card static">
+          <h3>Assembler, linker and emulator</h3>
+          <div class="pills"><span class="pill">Toolchain</span></div>
+          <p>A toolchain for a custom architecture.</p>
+        </div>
+        <div class="card static">
+          <h3>CPU design</h3>
+          <div class="pills"><span class="pill">VHDL/Verilog</span><span class="pill">FPGA</span></div>
+          <p>A custom CPU designed in HDL and verified on FPGA.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
