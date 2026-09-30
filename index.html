@@ -2,254 +2,305 @@
 <html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vuk Aleksijević, Game Programmer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Vuk Aleksijević · Game Programmer</title>
   <meta name="description" content="Game programmer working in C++ and Unreal Engine. Combat, gameplay UI and online features on Injustice 2 Mobile.">
+  <meta name="theme-color" content="#c8001e">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Vuk Aleksijević, Game Programmer">
+  <meta property="og:title" content="Vuk Aleksijević · Game Programmer">
   <meta property="og:description" content="Combat, gameplay UI and online features in Unreal Engine with C++.">
   <meta property="og:url" content="https://byk27.github.io/">
   <meta property="og:image" content="https://byk27.github.io/media/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
 
   <script>
     document.documentElement.classList.replace("no-js", "js");
-
     // Media that hasn't been uploaded yet is removed instead of showing as broken.
     function dropMissing(el) {
       var figure = el.closest("figure");
-      var gallery = el.closest(".gallery");
+      var gallery = el.closest(".gallery, .phones");
       (figure || el).remove();
       if (gallery && !gallery.querySelector("figure")) gallery.remove();
     }
   </script>
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
+  <link rel="preload" href="fonts/Anton-Regular.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="fonts/BowlbyOne-Regular.woff" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="style.css">
   <script type="module" src="js/main.js"></script>
 </head>
-<body data-view="start">
+<body>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<!-- ============ SVG sprites and filters ============ -->
+<svg class="defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- "Boiling" warp used on the menu lettering and title. Three seeds are cycled in CSS. -->
+    <filter id="warp-1" x="-10%" y="-30%" width="120%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.028 0.05" numOctaves="2" seed="3"/>
+      <feDisplacementMap in="SourceGraphic" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="warp-2" x="-10%" y="-30%" width="120%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.028 0.05" numOctaves="2" seed="11"/>
+      <feDisplacementMap in="SourceGraphic" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="warp-3" x="-10%" y="-30%" width="120%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.028 0.05" numOctaves="2" seed="27"/>
+      <feDisplacementMap in="SourceGraphic" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="melt" x="-10%" y="-40%" width="120%" height="180%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.035" numOctaves="3" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="melt-2" x="-10%" y="-40%" width="120%" height="180%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.035" numOctaves="3" seed="19"/>
+      <feDisplacementMap in="SourceGraphic" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
   <!-- Icons: Lucide (ISC license, lucide.dev); GitHub mark: Simple Icons (CC0) -->
-  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
-  <symbol id="i-gamepad" viewBox="0 0 24 24"><line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol>
-  <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
-  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
   <symbol id="i-file-down" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></symbol>
-  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
   <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
-  <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
-  <symbol id="i-cpu" viewBox="0 0 24 24"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></symbol>
-  <symbol id="i-joystick" viewBox="0 0 24 24"><path d="M21 17a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1z"/><path d="M6 15v-2"/><path d="M12 15V9"/><circle cx="12" cy="6" r="3"/></symbol>
-  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
   <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
-  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.930 0-1.310.465-2.380 1.235-3.220-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.910 1.23 3.220 0 4.610-2.805 5.625-5.475 5.920.42.36.81 1.096.81 2.220 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/></symbol>
 </svg>
 
-<!-- Animated wireframe terrain, drawn in js/background.js -->
-<div class="backdrop" aria-hidden="true">
-  <span class="aurora aurora-a"></span>
-  <span class="aurora aurora-b"></span>
-  <canvas id="bg"></canvas>
-  <div class="shade"></div>
+<!-- ============ Background ============ -->
+<div class="bg" aria-hidden="true">
+  <div class="bg-rays"></div>
+  <div class="bg-dots"></div>
+  <div class="bg-shards">
+    <i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <div class="bg-grain"></div>
+  <div class="bg-vignette"></div>
 </div>
 
-<!-- ===================== Start menu ===================== -->
-<main id="start" class="start">
-  <header class="topbar">
-    <a class="icon-btn" href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/" target="_blank" rel="noopener" aria-label="LinkedIn">
-      <svg class="icon"><use href="#i-linkedin"/></svg>
-    </a>
-    <a class="icon-btn" href="https://github.com/BYK27" target="_blank" rel="noopener" aria-label="GitHub">
-      <svg class="icon"><use href="#i-github"/></svg>
-    </a>
-    <a class="btn" href="cv/Vuk_Aleksijevic_CV.pdf" download>
-      <svg class="icon"><use href="#i-file-down"/></svg>Download CV
-    </a>
-  </header>
+<!-- ============ HUD ============ -->
+<div class="hud">
+  <button type="button" class="sfx-btn" id="sfx" aria-pressed="true" aria-label="Sound effects">
+    <svg class="icon on"><use href="#i-sound"/></svg><svg class="icon off"><use href="#i-mute"/></svg>
+    <span class="sfx-label">SFX <b class="on">ON</b><b class="off">OFF</b></span>
+  </button>
+</div>
 
-  <div class="logo">
-    <h1><span>Vuk</span> <span>Aleksijević</span></h1>
-    <p class="logo-role">Game Programmer</p>
-    <p class="logo-tag"><b>C++</b> and <b>Unreal Engine</b>. Combat, gameplay UI and online features on Injustice 2 Mobile.</p>
+<!-- ============ Start menu ============ -->
+<main id="start" class="start">
+  <div class="scene" id="scene">
+
+    <header class="title">
+      <h1 class="title-name">
+        <span class="title-back" aria-hidden="true">VUK ALEKSIJEVIĆ</span>
+        <span class="title-front">VUK ALEKSIJEVIĆ</span>
+      </h1>
+      <p class="title-role"><span>GAME PROGRAMMER</span></p>
+    </header>
+
+    <div class="stage">
+      <!-- CRT -->
+      <div class="tv" aria-hidden="true">
+        <div class="tv-body">
+          <svg class="tv-svg" viewBox="0 0 520 440">
+            <defs>
+              <linearGradient id="tv-front" x1="0" y1="0" x2="0.3" y2="1">
+                <stop offset="0" stop-color="#3a3a3c"/>
+                <stop offset="0.35" stop-color="#1b1b1d"/>
+                <stop offset="1" stop-color="#070708"/>
+              </linearGradient>
+              <linearGradient id="tv-side" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#050505"/>
+                <stop offset="1" stop-color="#1a1a1b"/>
+              </linearGradient>
+              <linearGradient id="tv-bezel" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#0a0a0b"/>
+                <stop offset="1" stop-color="#232325"/>
+              </linearGradient>
+            </defs>
+            <!-- side -->
+            <path d="M18 58 L78 26 L78 404 L18 380 Z" fill="url(#tv-side)"/>
+            <g stroke="#000" stroke-width="3" opacity=".9">
+              <line x1="30" y1="250" x2="66" y2="244"/><line x1="30" y1="262" x2="66" y2="257"/>
+              <line x1="30" y1="274" x2="66" y2="270"/><line x1="30" y1="286" x2="66" y2="283"/>
+              <line x1="30" y1="298" x2="66" y2="296"/><line x1="30" y1="310" x2="66" y2="309"/>
+              <line x1="30" y1="322" x2="66" y2="322"/><line x1="30" y1="334" x2="66" y2="335"/>
+            </g>
+            <!-- front -->
+            <rect x="70" y="18" width="436" height="390" rx="28" fill="url(#tv-front)"/>
+            <path d="M98 22 H478" stroke="#6a6a6e" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+            <!-- bezel -->
+            <rect x="96" y="44" width="384" height="262" rx="34" fill="url(#tv-bezel)"/>
+            <rect x="110" y="56" width="356" height="238" rx="30" fill="#020203"/>
+            <!-- VCR -->
+            <rect x="104" y="318" width="376" height="58" rx="10" fill="#0c0c0d" stroke="#2c2c2f" stroke-width="2"/>
+            <rect x="170" y="332" width="200" height="16" rx="3" fill="#000" stroke="#303033"/>
+            <rect x="176" y="337" width="188" height="6" fill="#141416"/>
+            <g fill="#26262a" stroke="#3b3b3f">
+              <rect x="384" y="330" width="18" height="10" rx="2"/><rect x="406" y="330" width="18" height="10" rx="2"/>
+              <rect x="428" y="330" width="18" height="10" rx="2"/><rect x="450" y="330" width="18" height="10" rx="2"/>
+            </g>
+            <circle class="tv-led" cx="392" cy="358" r="4" fill="#ff1b2d"/>
+            <text x="404" y="362" fill="#5a5a60" font-family="Barlow Condensed, sans-serif" font-size="11" font-weight="700" letter-spacing="1">REC</text>
+            <g fill="#0a0a0a" stroke="#4a4a4f" stroke-width="2">
+              <circle cx="126" cy="360" r="8"/><circle cx="150" cy="360" r="8"/>
+            </g>
+            <circle cx="126" cy="360" r="3" fill="#c9b04a"/><circle cx="150" cy="360" r="3" fill="#ddd"/>
+            <text x="116" y="340" fill="#5a5a60" font-family="Barlow Condensed, sans-serif" font-size="9" font-weight="700" letter-spacing="1">AUDIO  VIDEO</text>
+            <text x="244" y="370" fill="#6d6d73" font-family="Anton, sans-serif" font-size="13" letter-spacing="3">BYK·27</text>
+            <!-- feet -->
+            <rect x="120" y="406" width="70" height="10" rx="3" fill="#050505"/>
+            <rect x="386" y="406" width="70" height="10" rx="3" fill="#050505"/>
+          </svg>
+
+          <div class="screen" id="screen">
+            <div class="screen-img"><img id="screen-img" alt=""></div>
+            <div class="screen-text" id="screen-text"></div>
+            <canvas class="screen-noise" id="screen-noise" width="160" height="110"></canvas>
+            <div class="screen-lines"></div>
+            <div class="screen-glare"></div>
+            <div class="screen-osd"><span id="screen-ch">CH 00</span><span class="osd-play">▶ PLAY</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu: beams fanning out of the TV -->
+      <nav class="fan" id="fan" aria-label="Main menu">
+        <ul class="menu" data-menu="root">
+          <li class="beam"><a href="#about" data-ch="01" data-screen="text:HELLO|BELGRADE · SERBIA"><span class="beam-label">About</span></a></li>
+          <li class="beam"><a href="#experience" data-ch="02" data-screen="text:INJUSTICE 2|MOBILE · 2024–NOW"><span class="beam-label">Experience</span></a></li>
+          <li class="beam"><a href="#projects" data-open="projects" data-ch="03" data-screen="reel"><span class="beam-label">Projects</span></a></li>
+          <li class="beam"><a href="#skills" data-ch="04" data-screen="text:C++ / UE5|SKILLS &amp; EDUCATION"><span class="beam-label">Skills</span></a></li>
+          <li class="beam"><a href="#contact" data-open="contact" data-ch="05" data-screen="text:CONTACT|EMAIL · LINKEDIN · GITHUB"><span class="beam-label">Contact</span></a></li>
+        </ul>
+
+        <ul class="menu" data-menu="projects" hidden>
+          <li class="beam"><a href="#topdown" data-ch="31" data-screen="img:media/topdown-1.jpg"><span class="beam-label">Top-Down</span></a></li>
+          <li class="beam"><a href="#jams" data-ch="32" data-screen="img:media/jam-fauxtelja-play.png"><span class="beam-label">Game Jams</span></a></li>
+          <li class="beam"><a href="#pupilprism" data-ch="33" data-screen="img:media/pupilprism-1.png"><span class="beam-label">PupilPrism</span></a></li>
+          <li class="beam"><a href="#tenthousand" data-ch="34" data-screen="img:media/tenthousand-1.png"><span class="beam-label">TenThousand</span></a></li>
+          <li class="beam"><a href="#systems" data-ch="35" data-screen="text:RISC-V|KERNEL · COMPILER · CPU"><span class="beam-label">Systems</span></a></li>
+          <li class="beam beam-back"><a href="#" data-back data-ch="03" data-screen="reel"><span class="beam-label">Back</span></a></li>
+        </ul>
+
+        <ul class="menu" data-menu="contact" hidden>
+          <li class="beam"><a href="mailto:vuk.aleksijevic2001@gmail.com" data-copy="vuk.aleksijevic2001@gmail.com" data-ch="51" data-screen="text:EMAIL|CLICK TO COPY"><span class="beam-label">Email</span></a></li>
+          <li class="beam"><a href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/" target="_blank" rel="noopener" data-ch="52" data-screen="text:LINKEDIN|VUK ALEKSIJEVIĆ"><span class="beam-label">LinkedIn</span></a></li>
+          <li class="beam"><a href="https://github.com/BYK27" target="_blank" rel="noopener" data-ch="53" data-screen="text:GITHUB|GITHUB.COM/BYK27"><span class="beam-label">GitHub</span></a></li>
+          <li class="beam"><a href="cv/Vuk_Aleksijevic_CV.pdf" download data-ch="54" data-screen="text:RESUME|PDF · 2 PAGES"><span class="beam-label">Resume</span></a></li>
+          <li class="beam beam-back"><a href="#" data-back data-ch="05" data-screen="text:CONTACT|EMAIL · LINKEDIN · GITHUB"><span class="beam-label">Back</span></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <footer class="strap">
+      <p class="strap-line">C++ · Unreal Engine · Belgrade</p>
+      <svg class="strap-stroke" viewBox="0 0 600 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9 C120 4 260 3 420 5 C500 6 560 5 598 3 L596 8 C520 11 380 10 250 11 C150 12 60 12 4 13 Z"/></svg>
+      <ul class="tags">
+        <li><a class="tag" href="cv/Vuk_Aleksijevic_CV.pdf" download>Resume</a></li>
+        <li><a class="tag" href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a class="tag" href="https://github.com/BYK27" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </footer>
   </div>
 
-  <nav class="menu" aria-label="Main menu">
-    <ul class="groups">
-      <li>
-        <button type="button" class="group-btn" data-group="info" aria-expanded="false" aria-controls="opts-info">
-          <svg class="icon"><use href="#i-user"/></svg><span>My info</span>
-          <svg class="icon chevron"><use href="#i-chevron"/></svg>
-        </button>
-      </li>
-      <li>
-        <button type="button" class="group-btn" data-group="contact" aria-expanded="false" aria-controls="opts-contact">
-          <svg class="icon"><use href="#i-mail"/></svg><span>Contact details</span>
-          <svg class="icon chevron"><use href="#i-chevron"/></svg>
-        </button>
-      </li>
-      <li>
-        <button type="button" class="group-btn" data-group="projects" aria-expanded="false" aria-controls="opts-projects">
-          <svg class="icon"><use href="#i-gamepad"/></svg><span>Projects</span>
-          <svg class="icon chevron"><use href="#i-chevron"/></svg>
-        </button>
-      </li>
-    </ul>
-
-    <div class="options" id="opts-info" data-group="info">
-      <p class="options-title">My info</p>
-      <a class="option" href="#about">
-        <svg class="icon"><use href="#i-user"/></svg>
-        <span><b>About me</b><small>Who I am and what I work on</small></span>
-      </a>
-      <a class="option" href="#experience">
-        <svg class="icon"><use href="#i-briefcase"/></svg>
-        <span><b>Experience</b><small>Injustice 2 Mobile at Sperasoft</small></span>
-      </a>
-      <a class="option" href="#skills">
-        <svg class="icon"><use href="#i-cap"/></svg>
-        <span><b>Skills and education</b><small>Languages, engines, degrees</small></span>
-      </a>
-      <a class="option" href="cv/Vuk_Aleksijevic_CV.pdf" download>
-        <svg class="icon"><use href="#i-file-down"/></svg>
-        <span><b>Download CV</b><small>PDF, 2 pages</small></span>
-      </a>
-    </div>
-
-    <div class="options" id="opts-contact" data-group="contact">
-      <p class="options-title">Contact details</p>
-      <a class="option" href="mailto:vuk.aleksijevic2001@gmail.com">
-        <svg class="icon"><use href="#i-mail"/></svg>
-        <span><b>Email</b><small>vuk.aleksijevic2001@gmail.com</small></span>
-      </a>
-      <a class="option" href="https://www.linkedin.com/in/vuk-aleksijevi%C4%87-a7b654293/" target="_blank" rel="noopener">
-        <svg class="icon"><use href="#i-linkedin"/></svg>
-        <span><b>LinkedIn</b><small>Vuk Aleksijević</small></span>
-      </a>
-      <a class="option" href="https://github.com/BYK27" target="_blank" rel="noopener">
-        <svg class="icon"><use href="#i-github"/></svg>
-        <span><b>GitHub</b><small>github.com/BYK27</small></span>
-      </a>
-      <a class="option" href="cv/Vuk_Aleksijevic_CV.pdf" download>
-        <svg class="icon"><use href="#i-file-down"/></svg>
-        <span><b>Download CV</b><small>PDF, 2 pages</small></span>
-      </a>
-    </div>
-
-    <div class="options" id="opts-projects" data-group="projects">
-      <p class="options-title">Projects</p>
-      <a class="option" href="#topdown">
-        <svg class="icon"><use href="#i-gamepad"/></svg>
-        <span><b>Top-down action game</b><small>Unreal Engine 4, in development</small></span>
-      </a>
-      <a class="option" href="#jams">
-        <svg class="icon"><use href="#i-joystick"/></svg>
-        <span><b>Game jams</b><small>Three games made in Godot</small></span>
-      </a>
-      <a class="option" href="#pupilprism">
-        <svg class="icon"><use href="#i-phone"/></svg>
-        <span><b>PupilPrism</b><small>Android reading app, master's thesis</small></span>
-      </a>
-      <a class="option" href="#tenthousand">
-        <svg class="icon"><use href="#i-phone"/></svg>
-        <span><b>TenThousand</b><small>Android focus timer</small></span>
-      </a>
-      <a class="option" href="#systems">
-        <svg class="icon"><use href="#i-cpu"/></svg>
-        <span><b>Systems projects</b><small>OS kernel, compiler, toolchain</small></span>
-      </a>
-    </div>
-  </nav>
-
-  <p class="build" id="build">Build 2026.09</p>
+  <div class="keys" aria-hidden="true">
+    <span><kbd>↑</kbd><kbd>↓</kbd> Select</span>
+    <span><kbd>Enter</kbd> Confirm</span>
+    <span><kbd>Esc</kbd> Back</span>
+  </div>
 </main>
 
-<!-- ===================== Pages ===================== -->
+<!-- ============ Pages ============ -->
 
-<section class="panel" id="about" data-group="info" aria-labelledby="about-h">
+<section class="panel" id="about" data-group="root" data-ch="01" aria-labelledby="about-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
-      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
-      <div class="page-head">
-        <h2 id="about-h">About me</h2>
+      <div class="page-top">
+        <button type="button" class="back" data-close><span>◀</span> Back</button>
+        <span class="page-ch">CH 01</span>
       </div>
-      <p class="tagline"><b>Game programmer</b> by trade, <b>game maker</b> in my free time.</p>
-      <div class="prose">
-        <p>I'm a game programmer at Sperasoft, where I've spent the last two years on Injustice 2 Mobile. I work across combat, gameplay UI and online features in Unreal Engine, using C++ and Blueprints, and I've shipped new playable characters, combat items, raid bosses and store features to a live game.</p>
-        <p>Outside work I'm building a top-down action game in Unreal Engine with a friend, and I make games at jams. I have a master's degree in software engineering from the University of Belgrade.</p>
-      </div>
+      <h2 id="about-h" class="ransom">About me</h2>
 
-      <dl class="facts">
-        <div><dt>Based in</dt><dd>Belgrade, Serbia, open to remote roles</dd></div>
-        <div><dt>Currently</dt><dd>Sperasoft, a Keywords Studio</dd></div>
-        <div><dt>Languages</dt><dd>Serbian, English, Italian</dd></div>
-        <div><dt>When not coding</dt><dd>Video games, drawing, cycling, the gym and cooking</dd></div>
-      </dl>
+      <div class="split">
+        <div class="prose">
+          <p>I'm a game programmer at Sperasoft in Belgrade. For the last two years I've worked on <b>Injustice 2 Mobile</b>, on combat, gameplay UI and online features, in C++ and Blueprints.</p>
+          <p>I've shipped new playable characters, combat items, raid bosses and store features to a live game.</p>
+          <p>Outside work I'm making a top-down action game in Unreal Engine with a friend, and I enter game jams. I have a master's degree in software engineering from the University of Belgrade.</p>
+        </div>
+
+        <dl class="stats">
+          <div><dt>Base</dt><dd>Belgrade, Serbia. Open to remote</dd></div>
+          <div><dt>Studio</dt><dd>Sperasoft, a Keywords Studio</dd></div>
+          <div><dt>Speaks</dt><dd>Serbian, English, Italian</dd></div>
+          <div><dt>Off the clock</dt><dd>Games, drawing, cycling, the gym, cooking</dd></div>
+        </dl>
+      </div>
 
       <div class="actions">
         <a class="btn" href="cv/Vuk_Aleksijevic_CV.pdf" download><svg class="icon"><use href="#i-file-down"/></svg>Download CV</a>
-        <a class="btn btn-ghost" href="mailto:vuk.aleksijevic2001@gmail.com"><svg class="icon"><use href="#i-mail"/></svg>Email me</a>
+        <a class="btn btn-alt" href="mailto:vuk.aleksijevic2001@gmail.com"><svg class="icon"><use href="#i-mail"/></svg>Email me</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="panel" id="experience" data-group="info" aria-labelledby="experience-h">
+<section class="panel" id="experience" data-group="root" data-ch="02" aria-labelledby="experience-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
-      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
-      <div class="page-head">
-        <h2 id="experience-h">Injustice 2 Mobile</h2>
-        <span class="page-meta">Aug 2024 – present</span>
+      <div class="page-top">
+        <button type="button" class="back" data-close><span>◀</span> Back</button>
+        <span class="page-ch">CH 02</span>
       </div>
+      <h2 id="experience-h" class="ransom">Injustice 2 Mobile</h2>
+      <p class="meta"><span>Aug 2024 – present</span></p>
+
       <div class="pills">
         <span class="pill">Sperasoft, a Keywords Studio</span>
         <span class="pill">NetherRealm Studios</span>
         <span class="pill">iOS and Android</span>
         <span class="pill">Credited</span>
       </div>
-      <p class="prose">A live-service fighting game. I work in C++, Blueprints and UMG, with TypeScript and Python for online and tooling work.</p>
+
+      <div class="prose">
+        <p>A live-service fighting game. I work in C++, Blueprints and UMG, with TypeScript and Python for online features and tools.</p>
+      </div>
 
       <ul class="roles">
         <li><span>Junior Software Developer II</span><span class="when">Jan 2025 – present</span></li>
         <li><span>Junior Software Developer</span><span class="when">Aug 2024 – Jan 2025</span></li>
       </ul>
 
-      <h3 class="section-title">Highlights</h3>
-      <div class="highlights">
-        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-gamepad"/></svg></span>
-          <div><b>Two new playable characters</b><p>Implemented on my own, from the first gameplay pass to release: passives, special attacks, VFX setup and gear bonuses.</p></div></div>
-        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-cpu"/></svg></span>
-          <div><b>10 artifacts</b><p>Equippable items with their own combat effects.</p></div></div>
-        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-joystick"/></svg></span>
-          <div><b>Raid bosses</b><p>Boss mechanics for four levels of a Solo Raid event, playtested with Game Design.</p></div></div>
-        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-briefcase"/></svg></span>
-          <div><b>Store offers system</b><p>Built end to end, from a new loot table class to the purchase flow, purchase limits and a new currency.</p></div></div>
-        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-phone"/></svg></span>
-          <div><b>Solo Raid rework</b><p>The UI and online side: premium purchase, training mode, tutorial and achievements.</p></div></div>
-        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-cpu"/></svg></span>
-          <div><b>Live crash fix</b><p>Diagnosed and fixed a crash affecting around 10,000 players.</p></div></div>
-        <div class="hl"><span class="hl-icon"><svg class="icon"><use href="#i-user"/></svg></span>
-          <div><b>Mentoring and hiring</b><p>Mentoring a junior developer and interviewing candidates for technical roles.</p></div></div>
-      </div>
+      <h3 class="section-title"><span>Highlights</span></h3>
+      <ol class="highlights">
+        <li><b>Two new playable characters</b><p>Built on my own, from the first gameplay pass to release: passives, special attacks, VFX setup and gear bonuses.</p></li>
+        <li><b>10 artifacts</b><p>Equippable items with their own combat effects.</p></li>
+        <li><b>Raid bosses</b><p>Boss mechanics for four levels of a Solo Raid event, playtested with Game Design.</p></li>
+        <li><b>Store offers system</b><p>End to end, from a new loot table class to the purchase flow, purchase limits and a new currency.</p></li>
+        <li><b>Solo Raid rework</b><p>The UI and online side: premium purchase, training mode, tutorial and achievements.</p></li>
+        <li><b>Live crash fix</b><p>Found and fixed a crash that affected around 10,000 players.</p></li>
+        <li><b>Mentoring and hiring</b><p>Mentoring a junior developer and interviewing candidates for technical roles.</p></li>
+      </ol>
 
-      <p class="note">I can't share footage or code from the project, but I'm happy to walk through how these systems work in an interview.</p>
+      <p class="note">Footage and code from this project aren't public.</p>
     </div>
   </div>
 </section>
 
-<section class="panel" id="skills" data-group="info" aria-labelledby="skills-h">
+<section class="panel" id="skills" data-group="root" data-ch="04" aria-labelledby="skills-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
-      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
-      <div class="page-head">
-        <h2 id="skills-h">Skills and education</h2>
+      <div class="page-top">
+        <button type="button" class="back" data-close><span>◀</span> Back</button>
+        <span class="page-ch">CH 04</span>
       </div>
+      <h2 id="skills-h" class="ransom">Skills</h2>
 
       <div class="skill-groups">
         <div class="skill-group">
@@ -270,212 +321,209 @@
         </div>
       </div>
 
-      <h3 class="section-title">Education</h3>
+      <h3 class="section-title"><span>Education</span></h3>
       <p class="muted">University of Belgrade, School of Electrical Engineering</p>
       <ul class="roles">
-        <li><span>Master's Degree, Software Engineering <span class="dim">GPA 9.5/10</span></span><span class="when">2026</span></li>
-        <li><span>Bachelor's Degree, Computer Engineering and Information Theory</span><span class="when">2024</span></li>
+        <li><span>Master's, Software Engineering <span class="dim">GPA 9.5/10</span></span><span class="when">2026</span></li>
+        <li><span>Bachelor's, Computer Engineering and Information Theory</span><span class="when">2024</span></li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="panel" id="topdown" data-group="projects" aria-labelledby="topdown-h">
+<section class="panel" id="topdown" data-group="projects" data-ch="31" aria-labelledby="topdown-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
-      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
-      <div class="page-head">
-        <h2 id="topdown-h">Top-down action game</h2>
-        <span class="page-meta">In development</span>
+      <div class="page-top">
+        <button type="button" class="back" data-close><span>◀</span> Back</button>
+        <span class="page-ch">CH 31</span>
       </div>
+      <h2 id="topdown-h" class="ransom">Top-down action game</h2>
+      <p class="meta"><span>In development</span></p>
       <div class="pills">
         <span class="pill">Unreal Engine 4</span>
         <span class="pill">C++</span>
-        <span class="pill">Co-developed with a friend</span>
+        <span class="pill">Made with a friend</span>
       </div>
 
-      <figure class="hero" data-hero>
-        <video src="media/topdown-clip.mp4" autoplay muted loop playsinline preload="metadata"
-               aria-label="Gameplay clip" onerror="this.remove()"></video>
-        <img src="media/topdown-1.jpg" alt="Hideout street with police pursuing the player" onerror="dropMissing(this)">
+      <figure class="hero">
+        <video src="media/topdown-clip.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Gameplay clip" onerror="this.remove()"></video>
+        <img src="media/topdown-1.jpg" alt="Hideout street with police chasing the player" data-zoom onerror="dropMissing(this)">
       </figure>
 
       <div class="prose">
-        <p>A top-down game built around a hideout hub you return to between raids. The hub has interactive stations, and the raid loop runs on custom subsystems for timing and time of day.</p>
+        <p>A top-down game built around a hideout you return to between raids. The hideout has stations you can interact with, and the raid loop runs on custom subsystems for timing and time of day.</p>
         <p><b>Tech:</b> gameplay code in C++ with Blueprint subclasses on top, Enhanced Input, Gameplay Tags, and custom subsystems for raid timing, time of day and widget management.</p>
       </div>
 
-      <div class="gallery gallery-2">
-        <figure><a href="media/topdown-2.jpg" target="_blank"><img src="media/topdown-2.jpg" alt="Contextual interaction prompt on a parked car" loading="lazy" onerror="dropMissing(this)"></a></figure>
-        <figure><a href="media/topdown-3.jpg" target="_blank"><img src="media/topdown-3.jpg" alt="Interaction prompt when talking to an NPC" loading="lazy" onerror="dropMissing(this)"></a></figure>
+      <div class="gallery">
+        <figure><img src="media/topdown-2.jpg" alt="Interaction prompt on a parked car" loading="lazy" data-zoom onerror="dropMissing(this)"></figure>
+        <figure><img src="media/topdown-3.jpg" alt="Interaction prompt when talking to an NPC" loading="lazy" data-zoom onerror="dropMissing(this)"></figure>
       </div>
     </div>
   </div>
 </section>
 
-<section class="panel" id="jams" data-group="projects" aria-labelledby="jams-h">
+<section class="panel" id="jams" data-group="projects" data-ch="32" aria-labelledby="jams-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
-      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
-      <div class="page-head">
-        <h2 id="jams-h">Game jams</h2>
+      <div class="page-top">
+        <button type="button" class="back" data-close><span>◀</span> Back</button>
+        <span class="page-ch">CH 32</span>
       </div>
-      <p class="prose">Made in Godot and GDScript with four-person teams, where I wrote most of the code.</p>
+      <h2 id="jams-h" class="ransom">Game jams</h2>
+      <div class="prose"><p>Godot and GDScript, in teams of four. I wrote most of the code.</p></div>
 
-      <div class="jam-cards">
-        <a class="jam" href="https://byk27.itch.io/fauxtelja" target="_blank" rel="noopener" data-shots>
-          <div class="jam-media">
-            <span class="jam-idle" aria-hidden="true">
-              <svg class="icon"><use href="#i-gamepad"/></svg>
-              <em>Hover to preview</em>
-            </span>
-            <img src="media/jam-fauxtelja-title.png" alt="Fauxtelja title screen" loading="lazy" class="is-active" onerror="this.remove()">
-            <img src="media/jam-fauxtelja-play.png" alt="Fauxtelja turn-based board" loading="lazy" onerror="this.remove()">
-            <span class="jam-dots" aria-hidden="true"><span></span><span></span></span>
-          </div>
+      <div class="jams">
+        <article class="jam">
+          <figure class="jam-shot"><img src="media/jam-fauxtelja-play.png" alt="Fauxtelja turn-based board" loading="lazy" data-zoom onerror="dropMissing(this)"></figure>
           <div class="jam-body">
             <h3>Fauxtelja</h3>
             <div class="pills"><span class="pill">SKC Game Jam 2025</span><span class="pill">Strategy</span></div>
-            <p>Turn-based strategy and resource management, where the furniture bites back.</p>
-            <span class="card-link">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></span>
+            <p>Turn-based strategy and resource management.</p>
+            <a class="btn btn-small" href="https://byk27.itch.io/fauxtelja" target="_blank" rel="noopener">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></a>
           </div>
-        </a>
+        </article>
 
-        <a class="jam" href="https://stevant.itch.io/hoverbald" target="_blank" rel="noopener" data-shots>
-          <div class="jam-media">
-            <span class="jam-idle" aria-hidden="true">
-              <svg class="icon"><use href="#i-gamepad"/></svg>
-              <em>Hover to preview</em>
-            </span>
-            <img src="media/jam-hoverbald-title.png" alt="HoverBald title screen" loading="lazy" class="is-active" onerror="this.remove()">
-            <img src="media/jam-hoverbald-play.png" alt="HoverBald gameplay" loading="lazy" onerror="this.remove()">
-            <span class="jam-dots" aria-hidden="true"><span></span><span></span></span>
-          </div>
+        <article class="jam">
+          <figure class="jam-shot"><img src="media/jam-hoverbald-play.png" alt="HoverBald gameplay" loading="lazy" data-zoom onerror="dropMissing(this)"></figure>
           <div class="jam-body">
             <h3>HoverBald</h3>
             <div class="pills"><span class="pill">Retro Game Jam 2024</span><span class="pill">Procedural</span></div>
-            <p>Hover through procedurally generated caves without hitting anything, in a CRT-filtered retro look.</p>
-            <span class="card-link">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></span>
+            <p>Fly through procedurally generated caves without touching the walls, with a CRT filter over everything.</p>
+            <a class="btn btn-small" href="https://stevant.itch.io/hoverbald" target="_blank" rel="noopener">Play on itch.io <svg class="icon"><use href="#i-external"/></svg></a>
           </div>
-        </a>
+        </article>
 
-        <a class="jam" href="https://github.com/GopnikJammeri/LDJam56" target="_blank" rel="noopener" data-shots>
-          <div class="jam-media">
-            <span class="jam-idle" aria-hidden="true">
-              <svg class="icon"><use href="#i-gamepad"/></svg>
-              <em>Hover to preview</em>
-            </span>
-            <img src="media/jam-mosquito-1.jpg" alt="Not the Mosquito Again gameplay" loading="lazy" class="is-active" onerror="this.remove()">
-            <img src="media/jam-mosquito-2.jpg" alt="Not the Mosquito Again, bomb charging up" loading="lazy" onerror="this.remove()">
-            <span class="jam-dots" aria-hidden="true"><span></span><span></span></span>
-          </div>
+        <article class="jam">
+          <figure class="jam-shot"><img src="media/jam-mosquito-1.jpg" alt="Not the Mosquito Again gameplay" loading="lazy" data-zoom onerror="dropMissing(this)"></figure>
           <div class="jam-body">
             <h3>Not the Mosquito Again</h3>
             <div class="pills"><span class="pill">Ludum Dare 56</span><span class="pill">Multiplayer</span></div>
-            <p>One player is a mosquito, the other is trying to sleep. Made in 72 hours.</p>
-            <span class="card-link">Source on GitHub <svg class="icon"><use href="#i-external"/></svg></span>
+            <p>One player is a mosquito, the other one is trying to sleep. Made in 72 hours.</p>
+            <a class="btn btn-small" href="https://github.com/GopnikJammeri/LDJam56" target="_blank" rel="noopener">Source on GitHub <svg class="icon"><use href="#i-external"/></svg></a>
           </div>
-        </a>
+        </article>
+      </div>
+
+      <h3 class="section-title"><span>More screens</span></h3>
+      <div class="gallery gallery-3">
+        <figure><img src="media/jam-fauxtelja-title.png" alt="Fauxtelja title screen" loading="lazy" data-zoom onerror="dropMissing(this)"></figure>
+        <figure><img src="media/jam-hoverbald-title.png" alt="HoverBald title screen" loading="lazy" data-zoom onerror="dropMissing(this)"></figure>
+        <figure><img src="media/jam-mosquito-2.jpg" alt="Not the Mosquito Again, second screenshot" loading="lazy" data-zoom onerror="dropMissing(this)"></figure>
       </div>
     </div>
   </div>
 </section>
 
-<section class="panel" id="pupilprism" data-group="projects" aria-labelledby="pupilprism-h">
+<section class="panel" id="pupilprism" data-group="projects" data-ch="33" aria-labelledby="pupilprism-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
-      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
-      <div class="page-head">
-        <h2 id="pupilprism-h">PupilPrism</h2>
-        <span class="page-meta">Master's thesis, 2026</span>
+      <div class="page-top">
+        <button type="button" class="back" data-close><span>◀</span> Back</button>
+        <span class="page-ch">CH 33</span>
       </div>
+      <h2 id="pupilprism-h" class="ransom">PupilPrism</h2>
+      <p class="meta"><span>Master's thesis, 2026</span></p>
       <div class="pills">
         <span class="pill">Android</span><span class="pill">Kotlin</span><span class="pill">Jetpack Compose</span><span class="pill">Room</span>
       </div>
 
       <div class="prose">
-        <p>An adaptive-speed RSVP reader. It shows text one word at a time and adapts how long each word stays on screen to its length and punctuation, with the pivot letter highlighted so the eye doesn't have to move.</p>
-        <p>It imports PDFs and web articles, calibrates the reader's optimal speed with a comprehension test, tracks words read and streaks, and generates PDF reports. I evaluated it in a user study with 9 participants against reading on paper.</p>
+        <p>An RSVP speed reader. It shows text one word at a time and changes how long each word stays on screen based on its length and punctuation. The pivot letter is highlighted so your eyes don't have to move.</p>
+        <p>It imports PDFs and web articles, finds your reading speed with a comprehension test, tracks words read and streaks, and generates PDF reports. I tested it in a user study with 9 participants against reading on paper.</p>
       </div>
 
       <div class="actions">
-        <a class="btn btn-ghost" href="https://github.com/BYK27/PupilPrism" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>Source on GitHub</a>
+        <a class="btn btn-alt" href="https://github.com/BYK27/PupilPrism" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>Source on GitHub</a>
       </div>
 
       <div class="phones">
-        <figure><a href="media/pupilprism-1.png" target="_blank"><img src="media/pupilprism-1.png" alt="RSVP reader showing one word at a time with a speed control" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Reader, one word at a time</figcaption></figure>
-        <figure><a href="media/pupilprism-2.png" target="_blank"><img src="media/pupilprism-2.png" alt="Dashboard with reading assessment, words read and library" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Dashboard and library</figcaption></figure>
-        <figure><a href="media/pupilprism-3.png" target="_blank"><img src="media/pupilprism-3.png" alt="Appearance settings with theme colour picker" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Theming</figcaption></figure>
+        <figure><img src="media/pupilprism-1.png" alt="Reader showing one word at a time with a speed control" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Reader</figcaption></figure>
+        <figure><img src="media/pupilprism-2.png" alt="Dashboard with reading assessment, words read and library" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Dashboard</figcaption></figure>
+        <figure><img src="media/pupilprism-3.png" alt="Appearance settings with theme colour picker" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Themes</figcaption></figure>
       </div>
-    </div>
     </div>
   </div>
 </section>
 
-<section class="panel" id="tenthousand" data-group="projects" aria-labelledby="tenthousand-h">
+<section class="panel" id="tenthousand" data-group="projects" data-ch="34" aria-labelledby="tenthousand-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
-      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
-      <div class="page-head">
-        <h2 id="tenthousand-h">TenThousand</h2>
-        <span class="page-meta">Personal project</span>
+      <div class="page-top">
+        <button type="button" class="back" data-close><span>◀</span> Back</button>
+        <span class="page-ch">CH 34</span>
       </div>
+      <h2 id="tenthousand-h" class="ransom">TenThousand</h2>
+      <p class="meta"><span>Personal project</span></p>
       <div class="pills">
         <span class="pill">Android</span><span class="pill">Kotlin</span><span class="pill">Jetpack Compose</span><span class="pill">AGSL shaders</span>
       </div>
 
       <div class="prose">
-        <p>A habit and focus-timer app. Finishing a focus session earns currency, which is spent on a gacha system that unlocks animated backgrounds rendered with AGSL shaders, complete with a pity counter and a daily featured pull.</p>
+        <p>A focus timer. Finishing a focus session earns currency, which you spend on gacha pulls that unlock animated backgrounds rendered with AGSL shaders. It has a pity counter and a daily featured pull.</p>
       </div>
 
       <div class="actions">
-        <a class="btn btn-ghost" href="https://github.com/BYK27/TenThousand" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>Source on GitHub</a>
+        <a class="btn btn-alt" href="https://github.com/BYK27/TenThousand" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>Source on GitHub</a>
       </div>
 
       <div class="phones">
-        <figure><a href="media/tenthousand-1.png" target="_blank"><img src="media/tenthousand-1.png" alt="Gacha screen with an animated shader background and pity counter" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Gacha pull screen</figcaption></figure>
-        <figure><a href="media/tenthousand-2.png" target="_blank"><img src="media/tenthousand-2.png" alt="Focus timer counting down with earned currency" loading="lazy" onerror="dropMissing(this)"></a><figcaption>Focus timer</figcaption></figure>
+        <figure><img src="media/tenthousand-1.png" alt="Gacha screen with an animated shader background and pity counter" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Gacha pull</figcaption></figure>
+        <figure><img src="media/tenthousand-2.png" alt="Focus timer counting down with earned currency" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Focus timer</figcaption></figure>
       </div>
-    </div>
     </div>
   </div>
 </section>
 
-<section class="panel" id="systems" data-group="projects" aria-labelledby="systems-h">
+<section class="panel" id="systems" data-group="projects" data-ch="35" aria-labelledby="systems-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
-      <button type="button" class="back" data-close><svg class="icon"><use href="#i-arrow-left"/></svg>Back</button>
-      <div class="page-head">
-        <h2 id="systems-h">Systems projects</h2>
-        <span class="page-meta">University of Belgrade</span>
+      <div class="page-top">
+        <button type="button" class="back" data-close><span>◀</span> Back</button>
+        <span class="page-ch">CH 35</span>
       </div>
-      <p class="prose">Low-level projects from my computer engineering studies.</p>
+      <h2 id="systems-h" class="ransom">Systems</h2>
+      <p class="meta"><span>University of Belgrade</span></p>
+      <div class="prose"><p>Low-level projects from my computer engineering studies.</p></div>
 
       <div class="cards">
-        <div class="card static">
+        <div class="card">
           <h3>Operating system kernel</h3>
           <div class="pills"><span class="pill">C++</span><span class="pill">RISC-V assembly</span></div>
           <p>Threads, memory management and time-sharing on RISC-V.</p>
         </div>
-        <div class="card static">
+        <div class="card">
           <h3>MicroJava compiler</h3>
           <div class="pills"><span class="pill">Java</span></div>
-          <p>A complete compiler, from lexical analysis to code generation.</p>
+          <p>A full compiler, from lexical analysis to code generation.</p>
         </div>
-        <div class="card static">
+        <div class="card">
           <h3>Assembler, linker and emulator</h3>
           <div class="pills"><span class="pill">Toolchain</span></div>
           <p>A toolchain for a custom architecture.</p>
         </div>
-        <div class="card static">
+        <div class="card">
           <h3>CPU design</h3>
           <div class="pills"><span class="pill">VHDL/Verilog</span><span class="pill">FPGA</span></div>
-          <p>A custom CPU designed in HDL and verified on FPGA.</p>
+          <p>A custom CPU written in HDL and tested on an FPGA.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ============ Overlays ============ -->
+<div class="wipe" id="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <button type="button" class="lb-close" aria-label="Close">✕</button>
+  <button type="button" class="lb-nav lb-prev" aria-label="Previous image">◀</button>
+  <figure class="lb-figure"><img alt=""><figcaption></figcaption></figure>
+  <button type="button" class="lb-nav lb-next" aria-label="Next image">▶</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 </body>
 </html>
