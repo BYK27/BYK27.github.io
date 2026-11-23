@@ -5,6 +5,8 @@ To change a screenshot, replace the file and keep the same name.
 | File | Where it shows |
 |---|---|
 | og-image.jpg | Preview image when the link is shared (LinkedIn, Discord…) |
+| synthsins-1.jpg | Synthetic Sins page, main image. Also on the TV |
+| synthsins-2.jpg … synthsins-7.jpg | Synthetic Sins page gallery (2 is also on the TV and the projects menu screen) |
 | topdown-1.jpg | Top-down page, main image. Also on the TV |
 | topdown-2.jpg, topdown-3.jpg | Top-down page gallery. Also on the TV |
 | jam-fauxtelja-play.png, jam-hoverbald-play.png, jam-mosquito-1.jpg | Game jams page. Also on the TV |

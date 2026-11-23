@@ -175,7 +175,7 @@ const screen = (() => {
   const canvas = $("#screen-noise");
   const g = canvas.getContext("2d");
   const reelImages = [
-    "media/topdown-1.jpg", "media/jam-fauxtelja-play.png", "media/topdown-2.jpg",
+    "media/synthsins-1.jpg", "media/topdown-1.jpg", "media/jam-fauxtelja-play.png", "media/synthsins-2.jpg", "media/topdown-2.jpg",
     "media/jam-hoverbald-play.png", "media/pupilprism-1.png", "media/jam-mosquito-1.jpg",
     "media/sudeuxku-2.jpg", "media/topdown-3.jpg",
   ];
