@@ -28,8 +28,8 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/Anton-Regular.woff" as="font" type="font/woff" crossorigin>
   <link rel="preload" href="fonts/BowlbyOne-Regular.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="js/main.js"></script>
+  <link rel="stylesheet" href="style.css?v=3">
+  <script type="module" src="js/main.js?v=3"></script>
 </head>
 <body>
 
@@ -184,7 +184,7 @@
           <li class="beam"><a href="#topdown" data-ch="31" data-screen="img:media/topdown-1.jpg"><span class="beam-label">Top-Down</span></a></li>
           <li class="beam"><a href="#jams" data-ch="32" data-screen="img:media/jam-fauxtelja-play.png"><span class="beam-label">Game Jams</span></a></li>
           <li class="beam"><a href="#pupilprism" data-ch="33" data-screen="img:media/pupilprism-1.png"><span class="beam-label">PupilPrism</span></a></li>
-          <li class="beam"><a href="#tenthousand" data-ch="34" data-screen="img:media/tenthousand-1.png"><span class="beam-label">TenThousand</span></a></li>
+          <li class="beam"><a href="#sudeuxku" data-ch="34" data-screen="img:media/sudeuxku-2.jpg"><span class="beam-label">SuDeuxKu</span></a></li>
           <li class="beam"><a href="#systems" data-ch="35" data-screen="text:RISC-V|KERNEL · COMPILER · CPU"><span class="beam-label">Systems</span></a></li>
           <li class="beam beam-back"><a href="#" data-back data-ch="03" data-screen="reel"><span class="beam-label">Back</span></a></li>
         </ul>
@@ -447,30 +447,36 @@
   </div>
 </section>
 
-<section class="panel" id="tenthousand" data-group="projects" data-ch="34" aria-labelledby="tenthousand-h">
+<section class="panel" id="sudeuxku" data-group="projects" data-ch="34" aria-labelledby="sudeuxku-h">
   <div class="panel-scroll" tabindex="-1">
     <div class="page">
       <div class="page-top">
         <button type="button" class="back" data-close><span>◀</span> Back</button>
         <span class="page-ch">CH 34</span>
       </div>
-      <h2 id="tenthousand-h" class="ransom">TenThousand</h2>
-      <p class="meta"><span>Personal project</span></p>
+      <h2 id="sudeuxku-h" class="ransom">SuDeuxKu</h2>
+      <p class="meta"><span>Live on Google Play</span></p>
       <div class="pills">
-        <span class="pill">Android</span><span class="pill">Kotlin</span><span class="pill">Jetpack Compose</span><span class="pill">AGSL shaders</span>
+        <span class="pill">Android</span><span class="pill">Kotlin</span><span class="pill">Jetpack Compose</span><span class="pill">Firebase</span><span class="pill">Nearby Connections</span>
       </div>
 
       <div class="prose">
-        <p>A focus timer. Finishing a focus session earns currency, which you spend on gacha pulls that unlock animated backgrounds rendered with AGSL shaders. It has a pity counter and a daily featured pull.</p>
+        <p>A sudoku game for one or two players. You can play alone, solve the same board together with a friend, or race each other on the same puzzle.</p>
+        <p>Co-op works online with a 6-character room code over Firebase, or phone to phone over Bluetooth and Wi-Fi with Nearby Connections, with no internet needed. Tapping a cell reserves it, so players never type over each other, and pencil notes are shared. In Challenge mode a live bar shows who is ahead.</p>
+        <p>Puzzles are generated on the phone and always have exactly one solution. Difficulty depends on the techniques you need to solve them, from simple singles up to X-Wing, Swordfish and XY-Wing. It also has a daily puzzle, streaks, badges, points and levels, five color themes in light and dark, and English and Serbian. No ads.</p>
       </div>
 
       <div class="actions">
-        <a class="btn btn-alt" href="https://github.com/BYK27/TenThousand" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>Source on GitHub</a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.byk27.sudeuxko" target="_blank" rel="noopener">Get it on Google Play <svg class="icon"><use href="#i-external"/></svg></a>
       </div>
 
       <div class="phones">
-        <figure><img src="media/tenthousand-1.png" alt="Gacha screen with an animated shader background and pity counter" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Gacha pull</figcaption></figure>
-        <figure><img src="media/tenthousand-2.png" alt="Focus timer counting down with earned currency" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Focus timer</figcaption></figure>
+        <figure><img src="media/sudeuxku-1.jpg" alt="Home screen with level, daily puzzle and solo and co-op buttons" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Home</figcaption></figure>
+        <figure><img src="media/sudeuxku-2.jpg" alt="Sudoku board on Medium with undo, erase, notes and hint" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Board</figcaption></figure>
+        <figure><img src="media/sudeuxku-3.jpg" alt="Co-op game with the partner's reserved cell highlighted" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Co-op</figcaption></figure>
+        <figure><img src="media/sudeuxku-4.jpg" alt="Challenge race with a bar showing each player's progress" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Challenge</figcaption></figure>
+        <figure><img src="media/sudeuxku-5.jpg" alt="Progress screen with streak and solve statistics" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Progress</figcaption></figure>
+        <figure><img src="media/sudeuxku-6.jpg" alt="Badges screen with earned and locked badges" loading="lazy" data-zoom onerror="dropMissing(this)"><figcaption>Badges</figcaption></figure>
       </div>
     </div>
   </div>

@@ -10,7 +10,7 @@ To change a screenshot, replace the file and keep the same name.
 | jam-fauxtelja-play.png, jam-hoverbald-play.png, jam-mosquito-1.jpg | Game jams page. Also on the TV |
 | jam-fauxtelja-title.png, jam-hoverbald-title.png, jam-mosquito-2.jpg | "More screens" row on the jams page |
 | pupilprism-1.png, -2.png, -3.png | PupilPrism page, phone screens (1 is also on the TV) |
-| tenthousand-1.png, -2.png | TenThousand page, phone screens (1 is also on the TV) |
+| sudeuxku-1.jpg … sudeuxku-6.jpg | SuDeuxKu page, phone screens (2 is also on the TV) |
 | background.jpg | Not used by the new design; safe to delete |
 
 The TV on the start screen cycles through the images listed in `reelImages` at the top of

@@ -177,7 +177,7 @@ const screen = (() => {
   const reelImages = [
     "media/topdown-1.jpg", "media/jam-fauxtelja-play.png", "media/topdown-2.jpg",
     "media/jam-hoverbald-play.png", "media/pupilprism-1.png", "media/jam-mosquito-1.jpg",
-    "media/tenthousand-1.png", "media/topdown-3.jpg",
+    "media/sudeuxku-2.jpg", "media/topdown-3.jpg",
   ];
   let reelTimer = 0, reelIndex = 0, switchTimer = 0, current = "", running = true;
 
