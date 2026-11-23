@@ -264,7 +264,7 @@ let activeIndex = 0;
 let menuBusy = false;
 
 const FAN = { // angle ranges (deg) for the fan, by item count
-  4: [-16, 22], 5: [-20, 28], 6: [-18, 36],
+  4: [-16, 22], 5: [-20, 28], 6: [-18, 36], 7: [-17, 40],
 };
 const PORTRAIT_TILT = [-2.2, 1.6, -1.2, 2.2, -1.6, 1.2];
 
@@ -278,7 +278,8 @@ function layoutMenu(ul) {
     const len = +li.style.getPropertyValue("--len") || 6;
     const isBack = li.classList.contains("beam-back");
     let w = isBack ? 560 : 330 + len * 36 + r * 40;
-    w = Math.min(w, angle > 0 ? 740 - angle * 7 : 740 + angle * 6);
+    // longer fans (7+ beams) shrink their lower beams less, so those labels don't bunch up near the screen
+    w = Math.min(w, angle > 0 ? 740 - angle * (n >= 7 ? 4 : 7) : 740 + angle * 6);
     li.style.setProperty("--i", i);
     li.style.setProperty("--a", angle + "deg");
     li.style.setProperty("--w", Math.round(w) + "px");

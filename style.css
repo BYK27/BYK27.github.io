@@ -254,7 +254,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ---- Fan menu (beams) ---- */
 .fan { position: absolute; left: 432px; top: 192px; width: 0; height: 0; z-index: 3; }
 .menu { list-style: none; margin: 0; padding: 0; }
-.menu[data-menu="projects"] { --fs: 38px; }
+.menu[data-menu="projects"] { --fs: 35px; }
 .menu[hidden] { display: none; }
 
 .beam {
@@ -385,6 +385,7 @@ body.intro .strap { animation: rise .6s var(--ease-out) both 1s; }
   .beam > a { width: 100%; height: 66px; margin: 0; padding-left: 16%; }
   .beam-label { font-size: clamp(26px, 8.4vw, 36px); }
   .beam-back .beam-label { font-size: 26px; }
+  .beam-label.is-long { font-size: clamp(22px, 6.6vw, 30px); } /* two-word names that would run off a phone screen */
   .beam.is-active .beam-label { transform: skewX(-8deg) scale(1.08) translateX(6px); }
   .beam > a { pointer-events: auto; }
   .strap { position: relative; top: 0; margin-top: 26px; }
